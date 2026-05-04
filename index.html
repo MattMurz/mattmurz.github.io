@@ -129,6 +129,7 @@ footer{border-top:1px solid var(--line);color:#888;padding:26px 0;margin-top:30p
   <section id="quote" class="section">
     <h2>Quote / Wycena</h2>
     <p class="lead">For a quick estimate, send a short description and photos. If the job needs inspection, I will say so clearly.</p>
+    <div class="notice"><strong>Very local? Easier and cheaper.</strong><br>If the job is close to Isleworth, Brentford, Hounslow or nearby, I may be able to come and check it for free. The closer the job is, the easier it is to price fairly and arrange quickly. For jobs further away, send photos first and I will tell you honestly what makes sense.</div>
     <div class="quoteBox">
       <div class="quoteGrid">
         <div class="step"><strong>1.</strong><br>What needs doing?</div>
@@ -600,6 +601,9 @@ let current = 0;
 function tagLabel(t){
   return {hero:"strong",exterior:"exterior",interior:"interior",process:"process",details:"details",groundwork:"groundwork",repair:"repair / before",work:"work"}[t] || t;
 }
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[s]));
+}
 function render(filter="all"){
   const grid=document.getElementById("grid");
   grid.innerHTML="";
@@ -608,7 +612,9 @@ function render(filter="all"){
     const card=document.createElement("div");
     card.className="item";
     card.onclick=()=>openModal(idx);
-    card.innerHTML=<img src="\" alt="\" loading="lazy"><div class="meta"><h3>\</h3><div>#\ ┬Ě \</div></div>;
+    const title=escapeHtml(item.title || "");
+    const tagText=escapeHtml((item.tags || []).map(tagLabel).join(", "));
+    card.innerHTML=`<img src="${item.src}" alt="${title}" loading="lazy"><div class="meta"><h3>${title}</h3><div>#${String(item.id).padStart(3,"0")} - ${tagText}</div></div>`;
     grid.appendChild(card);
   });
 }
@@ -622,3 +628,4 @@ render();
 </script>
 </body>
 </html>
+

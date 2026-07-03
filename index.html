@@ -1,106 +1,123 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MattMurz | Construction Operations & Systems</title>
-<meta name="description" content="Independent construction contractor in London. 22 years of experience. Developing PROFITO cost-calculation platform.">
-<style>
-:root{--bg:#101010;--panel:#1b1b1b;--panel2:#252525;--text:#f5f5f5;--muted:#b8b8b8;--accent:#ffcc00;--line:#333}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
-a{color:inherit}
-.wrap{max-width:1180px;margin:auto;padding:0 18px}
-header{position:sticky;top:0;z-index:20;background:rgba(8,8,8,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0}
-.logo{font-weight:900;letter-spacing:.5px;text-transform:uppercase;font-size:22px}.logo span{color:var(--accent)}
-.links{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.links a{font-size:14px;color:#ddd;text-decoration:none}.cta{background:var(--accent);color:#111!important;padding:9px 12px;border-radius:8px;font-weight:800}
-.hero{padding:54px 0 34px;display:grid;grid-template-columns:1fr;gap:28px;align-items:center; text-align: center;}
-.hero h1{font-size:46px;line-height:1.03;margin:0 0 14px}.hero h1 span{color:var(--accent)}.hero p{color:var(--muted);font-size:18px;line-height:1.55;margin:0 auto 18px; max-width: 800px;}
-.badges{display:flex;gap:8px;flex-wrap:wrap;margin:16px auto; justify-content: center; max-width: 800px;}
-.badge{background:#222;border:1px solid #3a3a3a;border-radius:999px;padding:8px 10px;color:#ddd;font-size:13px; font-weight: bold;}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px; justify-content: center;}
-.btn{display:inline-block;text-decoration:none;padding:12px 14px;border-radius:10px;font-weight:800;border:1px solid #444;background:#222}.btn.primary{background:var(--accent);color:#111;border-color:var(--accent)}
-.section{padding:34px 0;border-top:1px solid #222}.section h2{font-size:30px;margin:0 0 10px}.section p.lead{color:var(--muted);line-height:1.6;max-width:900px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}.service{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}.service h3{margin:0 0 8px;color:#fff}.service p{margin:0;color:var(--muted);line-height:1.5}
-.notice{border-left:4px solid var(--accent);background:#171717;border-radius:10px;padding:13px 14px;color:#ddd;margin:16px 0;line-height:1.55}
-.profito-box{background:linear-gradient(135deg,#1c1c1c,#131313);border:1px solid var(--accent);border-radius:18px;padding:24px;margin-top:18px}
-footer{border-top:1px solid var(--line);color:#888;padding:26px 0;margin-top:30px;font-size:13px; text-align: center;}
-@media(max-width:760px){.hero h1{font-size:36px}.links a:not(.cta){display:none}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROFITO Home Services | Brentford</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333333;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #0b1a30;
+            color: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 5px solid #28a745;
+        }
+        header h1 {
+            margin: 0;
+            color: #28a745;
+            text-transform: uppercase;
+            font-size: 32px;
+        }
+        header p {
+            margin: 10px 0 0 0;
+            font-size: 16px;
+        }
+        .container {
+            padding: 30px 20px;
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #0b1a30;
+            border-left: 4px solid #28a745;
+            padding-left: 10px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 15px 25px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+        .gallery {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .gallery-item {
+            flex: 1 1 calc(50% - 15px);
+            background-color: #eaeaea;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #cccccc;
+            color: #777777;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #666666;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-<header>
-  <div class="wrap nav">
-    <div class="logo">MattMurz <span>Systems</span></div>
-    <nav class="links"><a href="#profito">Profito Project</a><a href="#services">Core Operations</a><a href="#contact" class="cta">Contact</a></nav>
-  </div>
-</header>
-<main class="wrap">
-  <section class="hero">
-    <div>
-      <h1>Construction Entrepreneur & <span>Systems Developer</span></h1>
-      <p>Bridging 22 years of physical craftsmanship in London's construction sector with digital efficiency. Currently scaling operations to secure commercial clients and sector investors.</p>
-      <div class="badges">
-          <div class="badge">22 Years Experience</div>
-          <div class="badge">Commercial Contracting</div>
-          <div class="badge">Prop-Tech Development</div>
-          <div class="badge">PL / EN</div>
-      </div>
-      <div class="actions">
-          <a class="btn primary" href="#profito">View Project PROFITO</a>
-          <a class="btn" href="#contact">Investor / Client Contact</a>
-      </div>
-    </div>
-  </section>
 
-  <section id="profito" class="section">
-    <h2>Project: PROFITO (In Development)</h2>
-    <p class="lead">Actively developing a proprietary prop-tech platform to automate construction cost-calculations and client onboarding.</p>
-    <div class="profito-box">
-      <h3 style="margin-top:0; color: var(--accent);">Automated Infrastructure for Construction</h3>
-      <p style="color: #ddd; line-height: 1.6;">
-        The traditional construction industry suffers from administrative delays and inaccurate initial quotes. <strong>PROFITO</strong> is designed to solve this by providing:
-      </p>
-      <ul style="color: #bbb; line-height: 1.6;">
-        <li>Instant, accurate renovation and structural cost calculations for prospective clients.</li>
-        <li>Streamlined pipelines from lead generation to hard contract signing.</li>
-        <li>A secure, zero-trust backend architecture managing operations and resource allocation.</li>
-      </ul>
-      <p style="color: #ddd; margin-bottom: 0;"><em>Status: Actively seeking commercial partners and investors to scale deployment.</em></p>
-    </div>
-  </section>
+    <header>
+        <h1>PROFITO</h1>
+        <p>Premium Building & Interior Finishing Solutions</p>
+    </header>
 
-  <section id="services" class="section">
-    <h2>Core Operations & Experience</h2>
-    <p class="lead">Backed by over two decades of hands-on project management and high-end interior finishing across West London.</p>
-    <div class="cards">
-      <div class="service"><h3>High-Spec Finishing</h3><p>Complete oversight of residential and commercial interior transformations. Surface preparation, painting, and architectural detailing.</p></div>
-      <div class="service"><h3>Project Management</h3><p>Practical problem solving, site setup, and structural support. Ensuring operations run strictly to schedule and budget.</p></div>
-      <div class="service"><h3>System Automation</h3><p>Integrating data-driven workflows to eliminate overheads, bridging the gap between physical work and digital management.</p></div>
-    </div>
-  </section>
+    <div class="container">
+        <h2>About Us</h2>
+        <p>With 22 years of experience in the UK construction industry, PROFITO delivers uncompromising quality in home renovations and finishing. Operating primarily in Brentford and West London, we guarantee solid craftsmanship and professional service.</p>
+        
+        <h2>Our Services</h2>
+        <ul>
+            <li>Painting & Decorating</li>
+            <li>Acoustic & Decorative Wall Panels</li>
+            <li>Electrical Work</li>
+            <li>General Maintenance & Repairs</li>
+        </ul>
 
-  <section id="portfolio" class="section">
-    <h2>Portfolio Access & Privacy</h2>
-    <p class="lead">Due to strict privacy protocols regarding client properties (faces, sensitive locations) and the current migration to the PROFITO platform, the public photo gallery is temporarily restricted.</p>
-    <div class="notice">
-      <strong>Commercial Tenders & Investors:</strong> A curated, sterile portfolio of high-end projects is available upon direct request during commercial meetings or jobcentre reviews.
-    </div>
-  </section>
+        <h2>Digital Portfolio</h2>
+        <p>See the difference. Here are some of our recent transformations:</p>
+        <div class="gallery">
+            <div class="gallery-item">Photo 1 (Before/After)</div>
+            <div class="gallery-item">Photo 2 (Before/After)</div>
+            <div class="gallery-item">Photo 3 (Before/After)</div>
+            <div class="gallery-item">Photo 4 (Before/After)</div>
+        </div>
 
-  <section id="contact" class="section">
-    <h2>Contact & Strategy</h2>
-    <p class="lead">Open for strategic partnerships, high-net-worth project pipelines, and commercial contracting tenders.</p>
-    <div class="actions">
-        <a class="btn primary" href="tel:+440000000000">Call: +44 0000 000000</a>
-        <a class="btn" href="mailto:your-email@example.com">your-email@example.com</a>
+        <div style="text-align: center; margin-top: 40px;">
+            <h2>Ready to start your project?</h2>
+            <a href="https://wa.me/440000000000" class="btn">Get a Quote via WhatsApp</a>
+        </div>
     </div>
-  </section>
-</main>
-<footer>
-    <div class="wrap">© 2026 Mateusz Murzyniak | Independent Commercial Entity | London TW8</div>
-</footer>
+
+    <div class="footer">
+        PROFITO Home Services | Brentford, London <br>
+        Elevating Your Home, Everyday.
+    </div>
+
 </body>
 </html>

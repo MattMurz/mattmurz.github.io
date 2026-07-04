@@ -40,6 +40,7 @@
             color: #0b1a30;
             border-left: 4px solid #28a745;
             padding-left: 10px;
+            margin-top: 30px;
         }
         .btn {
             display: inline-block;
@@ -70,12 +71,23 @@
             justify-content: center;
             border: 2px dashed #cccccc;
             color: #777777;
+            text-align: center;
+            padding: 10px;
+            box-sizing: border-box;
         }
         .footer {
             text-align: center;
             padding: 20px;
             font-size: 14px;
             color: #666666;
+            margin-top: 20px;
+        }
+        .highlight-text {
+            font-style: italic;
+            font-weight: bold;
+            color: #0b1a30;
+            border-left: 3px solid #28a745;
+            padding-left: 10px;
             margin-top: 20px;
         }
     </style>
@@ -98,6 +110,73 @@
             <li>Electrical Work</li>
             <li>General Maintenance & Repairs</li>
         </ul>
+
+        <!-- NOWA SEKCJA: INŻYNIERIA -->
+        <h2>Beyond Standard Construction. Engineering & Precision.</h2>
+        <p>At PROFITO, there are no unsolvable problems—only technical challenges. Home renovations and interior finishing are more than just laying tiles or plastering walls. It's about building efficiently functioning systems. My approach relies on analytical thinking, which I hone after hours by taking on complex engineering projects.</p>
+        <p>What does this mean for you? It means your home is in the hands of a guy who optimizes every single detail from the ground up.</p>
+        
+        <ul>
+            <li><strong>Mechanics & Custom Builds:</strong> I spend my free time with wrenches in hand—from full engine rebuilds and diagnosing complex diesel systems to custom exhaust welding. If I can strip an engine down to its bare block and rebuild it to run perfectly, routing a flawless plumbing or electrical system in your bathroom is second nature.</li>
+            <li><strong>NatureAI & Automated Hydroponics:</strong> Space optimization is my specialty. I build automated hydroponic systems from scratch, merging biology with technology. This requires precise management of water circulation, oxygenation, and lighting in tight spaces. I apply this exact same focus on ergonomics and maximizing every square inch to your home renovations.</li>
+        </ul>
+        
+        <p class="highlight-text">Don't hire someone who just follows basic instructions. Choose a contractor who understands how systems work and can solve any technical problem.</p>
+
+        <div class="gallery">
+            <div class="gallery-item">Ford Mondeo Engine Rebuild (Photo Slot)</div>
+            <div class="gallery-item">Automated Hydroponics System (Photo Slot)</div>
+        </div>
+        <!-- KONIEC NOWEJ SEKCJI -->
+
+        <!-- Poczatek Kalkulatora PROFITO -->
+        <div class="calculator-box" style="background-color: #eef2f5; padding: 20px; border-radius: 8px; margin: 40px 0; border: 1px solid #ced4da;">
+            <h3 style="color: #0b1a30; border-bottom: 2px solid #28a745; padding-bottom: 10px; margin-top: 0;">Instant Project Estimator</h3>
+            
+            <label style="font-weight: bold; color: #333;">Select Service:</label><br>
+            <select id="serviceType" style="width: 100%; padding: 12px; margin-top: 5px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">
+                <option value="40">Painting & Decorating (£40 / sqm)</option>
+                <option value="85">Acoustic Wall Panels (£85 / sqm)</option>
+                <option value="60">Flooring Solutions (£60 / sqm)</option>
+            </select><br>
+            
+            <label style="font-weight: bold; color: #333;">Estimated Area (sq meters):</label><br>
+            <input type="number" id="areaSize" placeholder="e.g. 25" style="width: 100%; padding: 12px; margin-top: 5px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;"><br>
+            
+            <button onclick="calculateCost()" style="background-color: #0b1a30; color: #ffffff; padding: 15px 20px; border: none; width: 100%; font-weight: bold; font-size: 16px; cursor: pointer; border-radius: 4px; text-transform: uppercase;">Calculate Estimate</button>
+            
+            <div id="resultBox" style="display: none; margin-top: 20px; padding: 15px; background-color: #ffffff; border-left: 5px solid #28a745; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                <h4 style="margin-top: 0; color: #0b1a30; font-size: 18px;">Estimated Range: <br><span id="priceResult" style="color: #28a745; font-size: 24px;"></span></h4>
+                <p style="font-size: 12px; color: #666666; font-style: italic;">*This is a preliminary baseline estimate. Final quote requires an on-site visit or detailed photos.</p>
+                <a id="waLink" href="#" style="display: block; background-color: #25D366; color: #ffffff; text-align: center; padding: 15px; text-decoration: none; font-weight: bold; border-radius: 4px; margin-top: 15px;">Secure This Quote via WhatsApp</a>
+            </div>
+        </div>
+
+        <script>
+        function calculateCost() {
+            var rate = document.getElementById('serviceType').value;
+            var area = document.getElementById('areaSize').value;
+            
+            if(area > 0) {
+                var minCost = (rate * area) * 0.9;
+                var maxCost = (rate * area) * 1.2;
+                document.getElementById('priceResult').innerHTML = "£" + minCost.toFixed(0) + " - £" + maxCost.toFixed(0);
+                
+                var selectElement = document.getElementById('serviceType');
+                var serviceName = selectElement.options[selectElement.selectedIndex].text.split(' (')[0];
+                var msg = "Hi PROFITO! I used your quick estimator. I need " + serviceName + " for an area of roughly " + area + " sqm. The system estimated £" + minCost.toFixed(0) + " - £" + maxCost.toFixed(0) + ". Can we discuss the details?";
+                
+                // PODMIEN TEN NUMER NA SWOJ:
+                var waUrl = "https://wa.me/440000000000?text=" + encodeURIComponent(msg);
+                
+                document.getElementById('waLink').href = waUrl;
+                document.getElementById('resultBox').style.display = "block";
+            } else {
+                alert("Please enter a valid area size in square meters.");
+            }
+        }
+        </script>
+        <!-- Koniec Kalkulatora PROFITO -->
 
         <h2>Digital Portfolio</h2>
         <p>See the difference. Here are some of our recent transformations:</p>

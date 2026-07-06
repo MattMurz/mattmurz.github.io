@@ -5,33 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profito.system | Premium Building & Automation</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; color: #333; background-color: #f4f7f6; line-height: 1.6; }
-        header { background-color: #0b1a30; color: #fff; padding: 30px 20px 20px; text-align: center; border-bottom: 5px solid #28a745; position: relative; }
-        header h1 { margin: 0; color: #28a745; text-transform: uppercase; font-size: 36px; letter-spacing: 2px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; color: #e9f5ed; line-height: 1.6; }
+        
+        /* FULLSCREEN VIDEO BACKGROUND */
+        .video-bg { position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -2; object-fit: cover; }
+        /* DARK OVERLAY - żeby tekst był czytelny */
+        .bg-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 26, 48, 0.85); z-index: -1; }
+
+        header { background-color: rgba(11, 26, 48, 0.7); color: #fff; padding: 30px 20px 20px; text-align: center; border-bottom: 5px solid #28a745; position: relative; }
+        header h1 { margin: 0; color: #28a745; text-transform: uppercase; font-size: 36px; letter-spacing: 2px; text-shadow: 0 0 10px rgba(40,167,69,0.5); }
         header p { margin: 10px 0 0 0; font-size: 16px; color: #a8b2c1; }
+        
         .lang-switcher { margin-top: 15px; }
-        .lang-btn { background: transparent; border: 1px solid #4a5d78; color: #fff; padding: 5px 15px; margin: 0 5px; cursor: pointer; border-radius: 4px; font-weight: bold; transition: 0.3s; }
+        .lang-btn { background: rgba(0,0,0,0.5); border: 1px solid #4a5d78; color: #fff; padding: 5px 15px; margin: 0 5px; cursor: pointer; border-radius: 4px; font-weight: bold; transition: 0.3s; }
         .lang-btn:hover, .lang-btn.active { background: #28a745; border-color: #28a745; }
-        .container { padding: 30px 20px; max-width: 850px; margin: 20px auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-radius: 8px; }
-        h2 { color: #0b1a30; border-left: 5px solid #28a745; padding-left: 12px; margin-top: 35px; }
+
+        .container { padding: 30px 20px; max-width: 850px; margin: 20px auto; background-color: rgba(11, 26, 48, 0.6); box-shadow: 0 5px 25px rgba(0,0,0,0.5); border-radius: 8px; backdrop-filter: blur(5px); }
+        h2 { color: #34d058; border-left: 5px solid #28a745; padding-left: 12px; margin-top: 35px; }
         ul { padding-left: 20px; }
         li { margin-bottom: 8px; }
-        .hydro-section { position: relative; background: #111; color: #e9f5ed; padding: 30px 25px; border-radius: 8px; margin: 40px 0; overflow: hidden; border-left: 5px solid #28a745; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        .hydro-content { position: relative; z-index: 2; }
-        .hydro-section h2 { color: #34d058; border: none; padding: 0; margin-top: 0; }
-        .plant-background { position: absolute; bottom: 0; right: 5%; width: 150px; height: 100%; z-index: 1; opacity: 0.6; }
-        .vine { position: absolute; bottom: 0; left: 50%; width: 8px; background: #28a745; height: 0%; border-radius: 10px 10px 0 0; transition: height 2s cubic-bezier(0.25, 1, 0.5, 1); }
-        .leaf { position: absolute; background: #28a745; width: 25px; height: 15px; border-radius: 0 15px 0 15px; transform: scale(0); transition: transform 0.6s ease-out; }
-        .leaf-left { left: 20%; transform-origin: right bottom; }
-        .leaf-right { left: 50%; border-radius: 15px 0 15px 0; transform-origin: left bottom; }
-        .tomato-fruit { position: absolute; width: 40px; height: 40px; background: radial-gradient(circle at 30% 30%, #ff6b6b, #d92027); border-radius: 50%; box-shadow: inset -5px -5px 10px rgba(0,0,0,0.3), 0 5px 15px rgba(217, 32, 39, 0.4); transform: scale(0); transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .hydro-section.is-visible .vine { height: 90%; }
-        .hydro-section.is-visible .leaf { transform: scale(1); }
-        .hydro-section.is-visible .leaf:nth-child(2) { transition-delay: 0.5s; bottom: 20%; }
-        .hydro-section.is-visible .leaf:nth-child(3) { transition-delay: 1.0s; bottom: 50%; }
-        .hydro-section.is-visible .leaf:nth-child(4) { transition-delay: 1.5s; bottom: 75%; }
-        .hydro-section.is-visible .tomato-fruit { transform: scale(1); transition-delay: 2.2s; bottom: 70%; left: 10%; }
-        .calculator-box { background-color: #f8f9fa; padding: 25px; border-radius: 8px; margin: 40px 0; border: 1px solid #e9ecef; }
+
+        .hydro-section { background: rgba(0,0,0,0.5); padding: 25px; border-radius: 8px; margin: 40px 0; border-left: 5px solid #34d058; }
+        .plant-background { display: none; } 
+
+        .calculator-box { background-color: rgba(248, 249, 250, 0.95); padding: 25px; border-radius: 8px; margin: 40px 0; border: 1px solid #e9ecef; color: #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .form-group { margin-bottom: 15px; }
         label { font-weight: bold; color: #2c3e50; display: block; margin-bottom: 6px; font-size: 14px; }
         select, input { width: 100%; padding: 12px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; font-family: inherit; }
@@ -42,13 +39,18 @@
         #resultBox { display: none; margin-top: 20px; padding: 20px; background-color: #fff; border-left: 5px solid #28a745; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .wa-link { display: block; background-color: #25D366; color: #fff; text-align: center; padding: 15px; text-decoration: none; font-weight: bold; border-radius: 4px; margin-top: 15px; transition: 0.3s; }
         .wa-link:hover { background-color: #1ebe57; }
-        .footer { text-align: center; padding: 25px; font-size: 14px; color: #6c757d; background: #e9ecef; margin-top: 40px; }
-        .contact-box { background-color: #f1f3f5; padding: 20px; border-radius: 8px; margin-top: 30px; border: 1px solid #dee2e6; text-align: center; }
+        .footer { text-align: center; padding: 25px; font-size: 14px; color: #a8b2c1; background: rgba(11, 26, 48, 0.8); margin-top: 40px; backdrop-filter: blur(5px); }
+        .contact-box { background-color: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; margin-top: 30px; border: 1px solid rgba(255,255,255,0.2); text-align: center; }
         .gallery { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
-        .gallery-item { flex: 1 1 calc(50% - 15px); background-color: #eaeaea; height: 120px; display: flex; align-items: center; justify-content: center; border: 2px dashed #cccccc; color: #777777; text-align: center; padding: 10px; box-sizing: border-box; font-size: 13px; }
+        .gallery-item { flex: 1 1 calc(50% - 15px); background-color: rgba(255,255,255,0.1); height: 120px; display: flex; align-items: center; justify-content: center; border: 2px dashed rgba(255,255,255,0.3); color: #fff; text-align: center; padding: 10px; box-sizing: border-box; font-size: 13px; }
     </style>
 </head>
 <body>
+    <video class="video-bg" autoplay loop muted playsinline>
+        <source src="tomato_bg.mp4" type="video/mp4">
+    </video>
+    <div class="bg-overlay"></div>
+
     <header>
         <h1>Profito.system</h1>
         <p data-i18n="subtitle">Premium Building & Automated Interior Solutions</p>

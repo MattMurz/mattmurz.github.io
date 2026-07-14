@@ -41,8 +41,13 @@
         .wa-link:hover { background-color: #1ebe57; }
         .footer { text-align: center; padding: 25px; font-size: 14px; color: #a8b2c1; background: rgba(11, 26, 48, 0.8); margin-top: 40px; backdrop-filter: blur(5px); }
         .contact-box { background-color: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; margin-top: 30px; border: 1px solid rgba(255,255,255,0.2); text-align: center; }
+        
+        /* NOWE STYLE DLA GALERII */
         .gallery { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
-        .gallery-item { flex: 1 1 calc(50% - 15px); background-color: rgba(255,255,255,0.1); height: 120px; display: flex; align-items: center; justify-content: center; border: 2px dashed rgba(255,255,255,0.3); color: #fff; text-align: center; padding: 10px; box-sizing: border-box; font-size: 13px; }
+        .gallery-item { flex: 1 1 calc(50% - 15px); background-color: rgba(11, 26, 48, 0.5); border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); color: #fff; text-align: center; box-sizing: border-box; font-size: 13px; transition: transform 0.3s; }
+        .gallery-item:hover { transform: scale(1.02); }
+        .gallery-item img { width: 100%; height: 180px; object-fit: cover; display: block; }
+        .gallery-item span { display: block; padding: 12px; font-weight: bold; background: rgba(11, 26, 48, 0.8); }
     </style>
 </head>
 <body>
@@ -52,7 +57,6 @@
     <div class="bg-overlay"></div>
 
     <header>
-        <!-- UJEDNOLICONA NAZWA Z "S" -->
         <h1>PROFITO.SYSTEMS</h1>
         <p data-i18n="subtitle">Premium Building & Automated Interior Solutions</p>
         <div class="lang-switcher">
@@ -89,7 +93,6 @@
                 <div class="tomato-fruit"></div>
             </div>
             <div class="hydro-content">
-                <!-- TUTAJ WYJEBANY POLSKI TEKST, WSTAWIONY PRAWIDŁOWY ANGIELSKI DEFAULT -->
                 <h2 data-i18n="hydro_title" style="color: #34d058;">Passion & Precision (Hydroponics & Automation)</h2>
                 <p data-i18n="hydro_desc1">True engineering is a lifestyle, not a job. Outside of core building projects, Profito.systems operates advanced automated hydroponic environments for micro-cultivation ("Projekt Pomidor"). By monitoring real-time water metrics, nutrient cycles, and deploying custom embedded logic systems to regulate environments, we prove a philosophy of ultimate precision.</p>
                 <p style="font-style: italic; border-left: 3px solid #34d058; padding-left: 10px; color: #a8e6cf;" data-i18n="hydro_desc2">If a contractor designs micro-precision automation loops for simple plants, they will approach your structural projects, tiling layouts, and wall finishes with the exact same level of flawless discipline.</p>
@@ -149,12 +152,25 @@
                 <a id="waLink" href="#" class="wa-link" data-i18n="res_wa">Wyślij szczegóły przez WhatsApp</a>
             </div>
         </div>
+        
         <h2 data-i18n="portfolio_title">Digital Portfolio</h2>
         <div class="gallery">
-            <div class="gallery-item">Photo 1 (Structural Bathroom System & Layout)</div>
-            <div class="gallery-item">Photo 2 (Bespoke Acoustic Wall Panel Integration)</div>
-            <div class="gallery-item">Photo 3 (High-Spec Micro-Surface Finishes)</div>
-            <div class="gallery-item">Photo 4 (Automated Systems Diagnostic Center)</div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&auto=format&fit=crop" alt="Structural Bathroom">
+                <span>Structural Bathroom System & Layout</span>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&auto=format&fit=crop" alt="Acoustic Panels">
+                <span>Bespoke Acoustic Wall Panel Integration</span>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=600&auto=format&fit=crop" alt="Micro-Surface Finishes">
+                <span>High-Spec Micro-Surface Finishes</span>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=600&auto=format&fit=crop" alt="Automated Systems">
+                <span>Automated Systems Diagnostic Center</span>
+            </div>
         </div>
 
         <div class="contact-box">

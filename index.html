@@ -1,71 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profito.systems | Premium Building & Automation</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; color: #e9f5ed; line-height: 1.6; }
-        
-        /* FULLSCREEN VIDEO BACKGROUND */
-        .video-bg { position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -2; object-fit: cover; }
-        /* DARK OVERLAY - zmienione z 0.85 na 0.6 żeby film był zajebiście widoczny */
-        .bg-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 26, 48, 0.6); z-index: -1; }
-
-        header { background-color: rgba(11, 26, 48, 0.7); color: #fff; padding: 30px 20px 20px; text-align: center; border-bottom: 5px solid #28a745; position: relative; }
-        header h1 { margin: 0; color: #28a745; text-transform: uppercase; font-size: 36px; letter-spacing: 2px; text-shadow: 0 0 10px rgba(40,167,69,0.5); }
-        header p { margin: 10px 0 0 0; font-size: 16px; color: #a8b2c1; }
-        
-        .lang-switcher { margin-top: 15px; }
-        .lang-btn { background: rgba(0,0,0,0.5); border: 1px solid #4a5d78; color: #fff; padding: 5px 15px; margin: 0 5px; cursor: pointer; border-radius: 4px; font-weight: bold; transition: 0.3s; }
-        .lang-btn:hover, .lang-btn.active { background: #28a745; border-color: #28a745; }
-
-        .miarka-btn { position: absolute; right: 20px; top: 20px; background: #ff6b35; color: #fff; padding: 8px 12px; border-radius: 8px; text-decoration: none; font-weight: bold; }
-
-        .container { padding: 30px 20px; max-width: 850px; margin: 20px auto; background-color: rgba(11, 26, 48, 0.6); box-shadow: 0 5px 25px rgba(0,0,0,0.5); border-radius: 8px; backdrop-filter: blur(6px); }
-        h2 { color: #34d058; border-left: 5px solid #28a745; padding-left: 12px; margin-top: 35px; }
-        ul { padding-left: 20px; }
-        li { margin-bottom: 8px; }
-
-        .hydro-section { background: rgba(0,0,0,0.5); padding: 25px; border-radius: 8px; margin: 40px 0; border-left: 5px solid #34d058; }
-        .plant-background { display: none; } 
-
-        .calculator-box { background-color: rgba(248, 249, 250, 0.95); padding: 25px; border-radius: 8px; margin: 40px 0; border: 1px solid #e9ecef; color: #333; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-        .form-group { margin-bottom: 15px; }
-        label { font-weight: bold; color: #2c3e50; display: block; margin-bottom: 6px; font-size: 14px; }
-        select, input { width: 100%; padding: 12px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; font-family: inherit; }
-        .slider-container { background: #fff; border: 1px dashed #adb5bd; padding: 15px; border-radius: 6px; margin-top: 15px; }
-        .range-slider { width: 100%; margin: 15px 0; cursor: pointer; }
-        .btn-calc { background-color: #0b1a30; color: #fff; padding: 16px 20px; border: none; width: 100%; font-weight: bold; font-size: 16px; border-radius: 4px; cursor: pointer; transition: background 0.2s ease; }
-        .btn-calc:hover { background-color: #173259; }
-        #resultBox { display: none; margin-top: 20px; padding: 20px; background-color: #fff; border-left: 5px solid #28a745; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .wa-link { display: block; background-color: #25D366; color: #fff; text-align: center; padding: 15px; text-decoration: none; font-weight: bold; border-radius: 4px; margin-top: 15px; transition: background 0.2s ease; }
-        .wa-link:hover { background-color: #1ebe57; }
-        .footer { text-align: center; padding: 25px; font-size: 14px; color: #a8b2c1; background: rgba(11, 26, 48, 0.8); margin-top: 40px; backdrop-filter: blur(5px); }
-        .contact-box { background-color: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; margin-top: 30px; border: 1px solid rgba(255,255,255,0.2); text-align: center; }
-        
-        /* NOWE STYLE DLA GALERII */
-        .gallery { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
-        .gallery-item { flex: 1 1 calc(50% - 15px); background-color: rgba(11, 26, 48, 0.5); border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); color: #fff; text-align: left; }
-        .gallery-item:hover { transform: scale(1.02); }
-        .gallery-item img { width: 100%; height: 180px; object-fit: cover; display: block; }
-        .gallery-item span { display: block; padding: 12px; font-weight: bold; background: rgba(11, 26, 48, 0.8); }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profito - System Wycen</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <video class="video-bg" autoplay loop muted playsinline>
-        <source src="tomato_bg.mp4" type="video/mp4">
-    </video>
-    <div class="bg-overlay"></div>
+  <header class="navbar">
+    <div class="logo">Profito</div>
+    <nav>
+      <a href="#">Kalkulator</a>
+      <a href="#">Realizacje</a>
+    </nav>
+  </header>
 
-    <header>
-        <h1>PROFITO.SYSTEMS</h1>
-        <p data-i18n="subtitle">Premium Building & Automated Interior Solutions</p>
-        <div class="lang-switcher">
-            <button class="lang-btn active" onclick="setLang('en')">EN</button>
-            <button class="lang-btn" onclick="setLang('pl')">PL</button>
-            <button class="lang-btn" onclick="setLang('es')">ES</button>
-            <button class="lang-btn" onclick="setLang('de')">DE</button>
+  <main class="container">
+    <section class="hero">
+      <h1>Metrówka i Wyceny</h1>
+      <p>Szybkie i precyzyjne kosztorysy prac wykończeniowych.</p>
+    </section>
+
+    <section class="app-module">
+      <div class="card">
+        <h2>Nowy pomiar</h2>
+        <form class="calc-form">
+          <div class="input-group">
+            <label>Długość (m)</label>
+            <input type="number" step="0.01" placeholder="np. 5.20">
+          </div>
+          <div class="input-group">
+            <label>Szerokość (m)</label>
+            <input type="number" step="0.01" placeholder="np. 3.10">
+          </div>
+          <button type="button" class="btn-primary">Oblicz powierzchnię</button>
+        </form>
+        <div class="result-box">
+          <span>Wynik:</span>
+          <span class="value">0.00 m²</span>
         </div>
-        <a href="/miarka/" class="miarka-btn">Miarka</a>
-    </header>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

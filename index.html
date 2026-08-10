@@ -1,71 +1,94 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profito.systems | Premium Building & Automation</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; color: #e9f5ed; line-height: 1.6; }
-        
-        /* FULLSCREEN VIDEO BACKGROUND */
-        .video-bg { position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -2; object-fit: cover; }
-        /* DARK OVERLAY - zmienione z 0.85 na 0.6 żeby film był zajebiście widoczny */
-        .bg-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 26, 48, 0.6); z-index: -1; }
-
-        header { background-color: rgba(11, 26, 48, 0.7); color: #fff; padding: 30px 20px 20px; text-align: center; border-bottom: 5px solid #28a745; position: relative; }
-        header h1 { margin: 0; color: #28a745; text-transform: uppercase; font-size: 36px; letter-spacing: 2px; text-shadow: 0 0 10px rgba(40,167,69,0.5); }
-        header p { margin: 10px 0 0 0; font-size: 16px; color: #a8b2c1; }
-        
-        .lang-switcher { margin-top: 15px; }
-        .lang-btn { background: rgba(0,0,0,0.5); border: 1px solid #4a5d78; color: #fff; padding: 5px 15px; margin: 0 5px; cursor: pointer; border-radius: 4px; font-weight: bold; transition: 0.3s; }
-        .lang-btn:hover, .lang-btn.active { background: #28a745; border-color: #28a745; }
-
-        .miarka-btn { position: absolute; right: 20px; top: 20px; background: #ff6b35; color: #fff; padding: 8px 12px; border-radius: 8px; text-decoration: none; font-weight: bold; }
-
-        .container { padding: 30px 20px; max-width: 850px; margin: 20px auto; background-color: rgba(11, 26, 48, 0.6); box-shadow: 0 5px 25px rgba(0,0,0,0.5); border-radius: 8px; backdrop-filter: blur(6px); }
-        h2 { color: #34d058; border-left: 5px solid #28a745; padding-left: 12px; margin-top: 35px; }
-        ul { padding-left: 20px; }
-        li { margin-bottom: 8px; }
-
-        .hydro-section { background: rgba(0,0,0,0.5); padding: 25px; border-radius: 8px; margin: 40px 0; border-left: 5px solid #34d058; }
-        .plant-background { display: none; } 
-
-        .calculator-box { background-color: rgba(248, 249, 250, 0.95); padding: 25px; border-radius: 8px; margin: 40px 0; border: 1px solid #e9ecef; color: #333; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-        .form-group { margin-bottom: 15px; }
-        label { font-weight: bold; color: #2c3e50; display: block; margin-bottom: 6px; font-size: 14px; }
-        select, input { width: 100%; padding: 12px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; font-family: inherit; }
-        .slider-container { background: #fff; border: 1px dashed #adb5bd; padding: 15px; border-radius: 6px; margin-top: 15px; }
-        .range-slider { width: 100%; margin: 15px 0; cursor: pointer; }
-        .btn-calc { background-color: #0b1a30; color: #fff; padding: 16px 20px; border: none; width: 100%; font-weight: bold; font-size: 16px; border-radius: 4px; cursor: pointer; transition: background 0.2s ease; }
-        .btn-calc:hover { background-color: #173259; }
-        #resultBox { display: none; margin-top: 20px; padding: 20px; background-color: #fff; border-left: 5px solid #28a745; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .wa-link { display: block; background-color: #25D366; color: #fff; text-align: center; padding: 15px; text-decoration: none; font-weight: bold; border-radius: 4px; margin-top: 15px; transition: background 0.2s ease; }
-        .wa-link:hover { background-color: #1ebe57; }
-        .footer { text-align: center; padding: 25px; font-size: 14px; color: #a8b2c1; background: rgba(11, 26, 48, 0.8); margin-top: 40px; backdrop-filter: blur(5px); }
-        .contact-box { background-color: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; margin-top: 30px; border: 1px solid rgba(255,255,255,0.2); text-align: center; }
-        
-        /* NOWE STYLE DLA GALERII */
-        .gallery { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
-        .gallery-item { flex: 1 1 calc(50% - 15px); background-color: rgba(11, 26, 48, 0.5); border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); color: #fff; text-align: left; }
-        .gallery-item:hover { transform: scale(1.02); }
-        .gallery-item img { width: 100%; height: 180px; object-fit: cover; display: block; }
-        .gallery-item span { display: block; padding: 12px; font-weight: bold; background: rgba(11, 26, 48, 0.8); }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Profito.systems delivers practical building, interior and automation solutions with a clear quote process.">
+  <meta name="theme-color" content="#0b1a30">
+  <title>Profito.systems | Building and Automation</title>
+  <style>
+    :root { --ink:#081525; --panel:rgba(10,29,52,.88); --soft:rgba(255,255,255,.07); --accent:#39c875; --muted:#cbd7e2; --line:rgba(255,255,255,.17); }
+    * { box-sizing:border-box; } html { scroll-behavior:smooth; }
+    body { margin:0; min-width:320px; font-family:Inter,Segoe UI,Arial,sans-serif; color:#f7fbf9; background:var(--ink); line-height:1.6; }
+    a { color:inherit; } .video-bg { position:fixed; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; }
+    .bg-overlay { position:fixed; inset:0; z-index:-1; background:linear-gradient(135deg,rgba(4,14,28,.94),rgba(10,31,53,.76)); }
+    .wrap { width:min(1120px,calc(100% - 36px)); margin:0 auto; } header { padding:24px 0 72px; }
+    nav { display:flex; justify-content:space-between; align-items:center; gap:20px; } .brand { color:#fff; text-decoration:none; font-weight:850; font-size:1.18rem; letter-spacing:.08em; }
+    .brand span { color:var(--accent); } .nav-links { display:flex; gap:16px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-size:.94rem; } .nav-links a:hover,.nav-links a:focus-visible { color:#fff; }
+    .lang-switcher { display:flex; gap:6px; margin-left:8px; } .lang-btn { padding:6px 9px; color:#fff; background:transparent; border:1px solid var(--line); border-radius:6px; cursor:pointer; font:inherit; }
+    .lang-btn:hover,.lang-btn.active { border-color:var(--accent); background:var(--accent); color:#052313; }
+    .hero { max-width:780px; padding:92px 0 18px; } .eyebrow { margin:0 0 8px; color:#91edb2; font-size:.8rem; font-weight:800; letter-spacing:.13em; text-transform:uppercase; }
+    h1 { margin:.2em 0; font-size:clamp(2.8rem,7vw,5.6rem); line-height:.98; letter-spacing:-.045em; } h2 { margin:0 0 12px; font-size:clamp(1.65rem,3vw,2.35rem); line-height:1.1; }
+    h3 { margin:0 0 7px; color:#a4f3c2; font-size:1.12rem; } .lead { max-width:680px; margin:20px 0 28px; color:var(--muted); font-size:clamp(1.05rem,2vw,1.24rem); }
+    .actions { display:flex; flex-wrap:wrap; gap:12px; } .button { display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:11px 18px; border:1px solid transparent; border-radius:7px; color:#052313; background:var(--accent); text-decoration:none; font-weight:800; cursor:pointer; }
+    .button.secondary { color:#fff; background:transparent; border-color:var(--line); } .button:hover,.button:focus-visible { filter:brightness(1.08); }
+    main { padding:0 0 58px; } section { margin-top:26px; padding:30px; border:1px solid var(--line); border-radius:16px; background:var(--panel); backdrop-filter:blur(8px); }
+    .section-intro { max-width:700px; color:var(--muted); } .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:22px; }
+    .card { padding:20px; border:1px solid var(--line); border-radius:11px; background:var(--soft); } .card p,.muted { color:var(--muted); }
+    .tool { display:flex; align-items:center; justify-content:space-between; gap:24px; } .tool > div { max-width:760px; }
+    .gallery { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:22px; } .gallery-item { overflow:hidden; margin:0; border:1px solid var(--line); border-radius:10px; background:var(--soft); }
+    .gallery-item img { display:block; width:100%; aspect-ratio:4 / 3; object-fit:cover; } .gallery-item figcaption { padding:10px 12px; color:var(--muted); font-size:.9rem; }
+    .quote-layout { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(240px,.8fr); gap:28px; align-items:start; } form { display:grid; gap:14px; }
+    .form-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; } label { display:grid; gap:6px; color:#f5fbf7; font-weight:700; font-size:.94rem; }
+    input,select,textarea { width:100%; padding:11px 12px; border:1px solid rgba(255,255,255,.25); border-radius:7px; color:#fff; background:rgba(0,0,0,.26); font:inherit; }
+    input:focus,select:focus,textarea:focus { outline:2px solid var(--accent); outline-offset:1px; } textarea { min-height:120px; resize:vertical; }
+    .quote-note { padding:20px; border-radius:11px; background:rgba(57,200,117,.11); border:1px solid rgba(57,200,117,.3); } .quote-note p { color:var(--muted); }
+    .quote-output { margin:6px 0 0; padding:14px; white-space:pre-wrap; border:1px solid var(--line); border-radius:8px; color:var(--muted); background:rgba(0,0,0,.2); } .status { min-height:1.6em; color:#9cf0ba; }
+    footer { padding:25px 0; border-top:1px solid var(--line); color:var(--muted); font-size:.92rem; }
+    @media (max-width:820px) { .grid,.gallery { grid-template-columns:repeat(2,1fr); } .quote-layout { grid-template-columns:1fr; } }
+    @media (max-width:650px) { header { padding-bottom:38px; } .hero { padding-top:60px; } .grid,.gallery,.form-grid { grid-template-columns:1fr; } .tool,nav { align-items:flex-start; flex-direction:column; } .nav-links { justify-content:flex-start; } section { padding:23px; } }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .video-bg { display:none; } }
+  </style>
 </head>
 <body>
-    <video class="video-bg" autoplay loop muted playsinline>
-        <source src="tomato_bg.mp4" type="video/mp4">
-    </video>
-    <div class="bg-overlay"></div>
-
-    <header>
-        <h1>PROFITO.SYSTEMS</h1>
-        <p data-i18n="subtitle">Premium Building & Automated Interior Solutions</p>
-        <div class="lang-switcher">
-            <button class="lang-btn active" onclick="setLang('en')">EN</button>
-            <button class="lang-btn" onclick="setLang('pl')">PL</button>
-            <button class="lang-btn" onclick="setLang('es')">ES</button>
-            <button class="lang-btn" onclick="setLang('de')">DE</button>
-        </div>
-        <a href="/miarka/" class="miarka-btn">Miarka</a>
-    </header>
+  <video class="video-bg" autoplay loop muted playsinline aria-hidden="true"><source src="tomato_bg.mp4" type="video/mp4"></video>
+  <div class="bg-overlay"></div>
+  <header class="wrap">
+    <nav aria-label="Primary navigation">
+      <a class="brand" href="/" aria-label="Profito.systems home">PROFITO<span>.SYSTEMS</span></a>
+      <div class="nav-links">
+        <a href="#services" data-i18n="navServices">Services</a><a href="#projects" data-i18n="navProjects">Projects</a><a href="#quote" data-i18n="navQuote">Request a quote</a>
+        <div class="lang-switcher" aria-label="Language selector"><button class="lang-btn active" type="button" data-lang="en" aria-pressed="true">EN</button><button class="lang-btn" type="button" data-lang="pl" aria-pressed="false">PL</button></div>
+      </div>
+    </nav>
+    <div class="hero"><p class="eyebrow" data-i18n="eyebrow">Building · Interiors · Automation</p><h1 data-i18n="title">Practical spaces, made to work beautifully.</h1><p class="lead" data-i18n="lead">Profito.systems brings building work, interior solutions and useful automation together in one clear process.</p><div class="actions"><a class="button" href="#quote" data-i18n="quoteButton">Start a quote request</a><a class="button secondary" href="/miarka/" data-i18n="toolButton">Open A4 measure tool</a></div></div>
+  </header>
+  <main class="wrap">
+    <section id="services"><p class="eyebrow" data-i18n="servicesEyebrow">What we do</p><h2 data-i18n="servicesTitle">A joined-up approach from idea to finish.</h2><p class="section-intro" data-i18n="servicesIntro">A practical first conversation, a clear scope and the right mix of hands-on work and technology for the space.</p><div class="grid">
+      <article class="card"><h3 data-i18n="card1Title">Building work</h3><p data-i18n="card1Text">Reliable practical work planned around the needs of the space, access and finish.</p></article>
+      <article class="card"><h3 data-i18n="card2Title">Interior solutions</h3><p data-i18n="card2Text">Functional finishes and details that make everyday use easier and more comfortable.</p></article>
+      <article class="card"><h3 data-i18n="card3Title">Automation</h3><p data-i18n="card3Text">Straightforward technology that adds comfort and control without unnecessary complexity.</p></article>
+    </div></section>
+    <section id="projects"><p class="eyebrow" data-i18n="projectsEyebrow">Selected work</p><h2 data-i18n="projectsTitle">Existing projects, brought back into one clear portfolio.</h2><p class="section-intro" data-i18n="projectsIntro">A representative selection from the project archive. The full asset set remains in the repository for future case studies.</p><div class="gallery">
+      <figure class="gallery-item"><img src="assets/work_013.jpg" loading="lazy" alt="Completed interior project detail"><figcaption data-i18n="project1">Interior finish</figcaption></figure>
+      <figure class="gallery-item"><img src="assets/work_018.jpg" loading="lazy" alt="Practical building project"><figcaption data-i18n="project2">Building work</figcaption></figure>
+      <figure class="gallery-item"><img src="assets/work_031.jpg" loading="lazy" alt="Automation and installation detail"><figcaption data-i18n="project3">Installation</figcaption></figure>
+      <figure class="gallery-item"><img src="assets/work_038.jpg" loading="lazy" alt="Finished space ready for use"><figcaption data-i18n="project4">Finished space</figcaption></figure>
+      <figure class="gallery-item"><img src="assets/work_042.jpg" loading="lazy" alt="Interior project overview"><figcaption data-i18n="project5">Interior project</figcaption></figure>
+      <figure class="gallery-item"><img src="assets/work_047.jpg" loading="lazy" alt="Detail from a completed project"><figcaption data-i18n="project6">Project detail</figcaption></figure>
+      <figure class="gallery-item"><img src="assets/work_061.jpg" loading="lazy" alt="Practical space improvement"><figcaption data-i18n="project7">Space improvement</figcaption></figure>
+      <figure class="gallery-item"><img src="assets/work_063.jpg" loading="lazy" alt="Building and interior result"><figcaption data-i18n="project8">Completed result</figcaption></figure>
+    </div></section>
+    <section class="tool"><div><p class="eyebrow" data-i18n="toolEyebrow">Useful tool</p><h2 data-i18n="toolTitle">Measure from an A4 reference.</h2><p class="section-intro" data-i18n="toolText">Use the browser-based tool to detect an A4 sheet and establish a measurement scale from a photo.</p></div><a class="button" href="/miarka/" data-i18n="toolButton">Open A4 measure tool</a></section>
+    <section id="quote"><p class="eyebrow" data-i18n="quoteEyebrow">Next step</p><h2 data-i18n="quoteTitle">Send the useful details first.</h2><div class="quote-layout">
+      <form id="quote-form"><div class="form-grid">
+        <label><span data-i18n="nameLabel">Name</span><input name="name" autocomplete="name" required></label><label><span data-i18n="phoneLabel">Phone</span><input name="phone" autocomplete="tel" required></label>
+        <label><span data-i18n="areaLabel">Postcode or area</span><input name="area" autocomplete="postal-code" required></label><label><span data-i18n="urgencyLabel">Urgency</span><select name="urgency"><option value="Flexible" data-i18n="urgencyFlexible">Flexible</option><option value="Soon" data-i18n="urgencySoon">Soon</option><option value="Urgent" data-i18n="urgencyUrgent">Urgent</option></select></label>
+      </div><label><span data-i18n="workLabel">What needs doing</span><textarea name="work" required></textarea></label><label><span data-i18n="mediaLabel">Photos or short video link</span><input name="media" type="url" placeholder="https://"></label><label><span data-i18n="priorityLabel">Budget or priority</span><input name="priority"></label><label><span data-i18n="accessLabel">Parking and access notes</span><textarea name="access"></textarea></label><button class="button" type="submit" data-i18n="generateButton">Prepare request summary</button><p id="form-status" class="status" role="status" aria-live="polite"></p></form>
+      <aside class="quote-note"><h3 data-i18n="noteTitle">No hidden submission</h3><p data-i18n="noteText">This page prepares a clean summary in your browser. Copy it and send it through the agreed contact channel. No contact details or external service are invented here.</p><pre id="quote-output" class="quote-output" hidden></pre><button id="copy-summary" class="button secondary" type="button" hidden data-i18n="copyButton">Copy summary</button></aside>
+    </div></section>
+  </main>
+  <footer><div class="wrap">© <span id="year"></span> Profito.systems · <span data-i18n="footerText">Practical work, clear process.</span></div></footer>
+  <script>
+    const copy={en:{navServices:'Services',navProjects:'Projects',navQuote:'Request a quote',eyebrow:'Building · Interiors · Automation',title:'Practical spaces, made to work beautifully.',lead:'Profito.systems brings building work, interior solutions and useful automation together in one clear process.',quoteButton:'Start a quote request',toolButton:'Open A4 measure tool',servicesEyebrow:'What we do',servicesTitle:'A joined-up approach from idea to finish.',servicesIntro:'A practical first conversation, a clear scope and the right mix of hands-on work and technology for the space.',card1Title:'Building work',card1Text:'Reliable practical work planned around the needs of the space, access and finish.',card2Title:'Interior solutions',card2Text:'Functional finishes and details that make everyday use easier and more comfortable.',card3Title:'Automation',card3Text:'Straightforward technology that adds comfort and control without unnecessary complexity.',projectsEyebrow:'Selected work',projectsTitle:'Existing projects, brought back into one clear portfolio.',projectsIntro:'A representative selection from the project archive. The full asset set remains in the repository for future case studies.',project1:'Interior finish',project2:'Building work',project3:'Installation',project4:'Finished space',project5:'Interior project',project6:'Project detail',project7:'Space improvement',project8:'Completed result',toolEyebrow:'Useful tool',toolTitle:'Measure from an A4 reference.',toolText:'Use the browser-based tool to detect an A4 sheet and establish a measurement scale from a photo.',quoteEyebrow:'Next step',quoteTitle:'Send the useful details first.',nameLabel:'Name',phoneLabel:'Phone',areaLabel:'Postcode or area',urgencyLabel:'Urgency',urgencyFlexible:'Flexible',urgencySoon:'Soon',urgencyUrgent:'Urgent',workLabel:'What needs doing',mediaLabel:'Photos or short video link',priorityLabel:'Budget or priority',accessLabel:'Parking and access notes',generateButton:'Prepare request summary',noteTitle:'No hidden submission',noteText:'This page prepares a clean summary in your browser. Copy it and send it through the agreed contact channel. No contact details or external service are invented here.',copyButton:'Copy summary',copied:'Summary copied to clipboard.',ready:'Summary prepared below. Copy it when ready.',footerText:'Practical work, clear process.'},pl:{navServices:'Usługi',navProjects:'Realizacje',navQuote:'Zapytanie',eyebrow:'Budowa · Wnętrza · Automatyka',title:'Praktyczne przestrzenie, które dobrze działają.',lead:'Profito.systems łączy prace budowlane, rozwiązania wnętrzarskie i użyteczną automatykę w jednym przejrzystym procesie.',quoteButton:'Rozpocznij zapytanie',toolButton:'Otwórz miarkę A4',servicesEyebrow:'Co robimy',servicesTitle:'Spójne podejście od pomysłu do wykończenia.',servicesIntro:'Konkretna pierwsza rozmowa, jasny zakres i właściwe połączenie pracy ręcznej z technologią.',card1Title:'Prace budowlane',card1Text:'Rzetelne prace zaplanowane pod potrzeby miejsca, dostęp i oczekiwany efekt.',card2Title:'Rozwiązania wnętrzarskie',card2Text:'Funkcjonalne wykończenia i detale, które ułatwiają codzienne korzystanie.',card3Title:'Automatyka',card3Text:'Prosta technologia dająca komfort i kontrolę bez zbędnej komplikacji.',projectsEyebrow:'Wybrane realizacje',projectsTitle:'Istniejące projekty zebrane w jednym portfolio.',projectsIntro:'Reprezentatywny wybór z archiwum projektów. Pełny zestaw assetów pozostaje w repozytorium do rozbudowy opisów realizacji.',project1:'Wykończenie wnętrza',project2:'Prace budowlane',project3:'Instalacja',project4:'Gotowa przestrzeń',project5:'Projekt wnętrza',project6:'Detal realizacji',project7:'Usprawnienie przestrzeni',project8:'Gotowy efekt',toolEyebrow:'Przydatne narzędzie',toolTitle:'Mierz z kartką A4 jako odniesieniem.',toolText:'Otwórz narzędzie działające w przeglądarce, aby wykryć kartkę A4 i ustalić skalę pomiaru ze zdjęcia.',quoteEyebrow:'Następny krok',quoteTitle:'Najpierw prześlij konkretne informacje.',nameLabel:'Imię i nazwisko',phoneLabel:'Telefon',areaLabel:'Kod pocztowy lub okolica',urgencyLabel:'Termin',urgencyFlexible:'Elastyczny',urgencySoon:'Wkrótce',urgencyUrgent:'Pilne',workLabel:'Co trzeba zrobić',mediaLabel:'Link do zdjęć lub krótkiego filmu',priorityLabel:'Budżet lub priorytet',accessLabel:'Parking i dostęp',generateButton:'Przygotuj podsumowanie',noteTitle:'Bez ukrytej wysyłki',noteText:'Strona przygotowuje podsumowanie w przeglądarce. Skopiuj je i wyślij ustalonym kanałem kontaktu. Nie wpisujemy tu zmyślonych danych ani zewnętrznej usługi.',copyButton:'Skopiuj podsumowanie',copied:'Podsumowanie skopiowane.',ready:'Podsumowanie jest gotowe poniżej.',footerText:'Praktyczna praca, jasny proces.'}};
+    let language='en';
+    function setLang(next){language=copy[next]?next:'en';document.documentElement.lang=language;document.querySelectorAll('[data-i18n]').forEach((element)=>{const value=copy[language][element.dataset.i18n];if(value)element.textContent=value;});document.querySelectorAll('.lang-btn').forEach((button)=>{const active=button.dataset.lang===language;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));});}
+    function formSummary(form){const data=new FormData(form);const labels=language==='pl'?['Zapytanie Profito.systems','Imię i nazwisko','Telefon','Kod pocztowy lub okolica','Co trzeba zrobić','Zdjęcia lub film','Termin','Budżet lub priorytet','Parking i dostęp']:['Profito.systems quote request','Name','Phone','Postcode or area','What needs doing','Photos or video','Urgency','Budget or priority','Parking and access'];return [labels[0],'',labels[1]+': '+data.get('name'),labels[2]+': '+data.get('phone'),labels[3]+': '+data.get('area'),labels[4]+': '+data.get('work'),labels[5]+': '+(data.get('media')||'-'),labels[6]+': '+data.get('urgency'),labels[7]+': '+(data.get('priority')||'-'),labels[8]+': '+(data.get('access')||'-')].join('\\n');}
+    document.querySelectorAll('.lang-btn').forEach((button)=>button.addEventListener('click',()=>setLang(button.dataset.lang)));
+    document.getElementById('quote-form').addEventListener('submit',(event)=>{event.preventDefault();const output=document.getElementById('quote-output');output.textContent=formSummary(event.currentTarget);output.hidden=false;document.getElementById('copy-summary').hidden=false;document.getElementById('form-status').textContent=copy[language].ready;});
+    document.getElementById('copy-summary').addEventListener('click',async()=>{const output=document.getElementById('quote-output');try{await navigator.clipboard.writeText(output.textContent);document.getElementById('form-status').textContent=copy[language].copied;}catch{document.getElementById('form-status').textContent=output.textContent;}});
+    document.getElementById('year').textContent=new Date().getFullYear();
+  </script>
+</body>
+</html>

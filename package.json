@@ -1,0 +1,9 @@
+{
+  "name": "profito-systems-site",
+  "private": true,
+  "scripts": {
+    "check": "node scripts/check-site.mjs",
+    "serve": "python -m http.server 8000"
+  }
+}
+

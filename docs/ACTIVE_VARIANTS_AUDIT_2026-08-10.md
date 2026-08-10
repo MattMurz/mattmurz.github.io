@@ -12,8 +12,10 @@ The Drive archive contains two Profito folders. The newer folder includes the sa
 
 - Rebuilt the active page around the existing video, Miarka tool, project assets, services, and quote-request fields.
 - Added a representative gallery without removing the full asset archive.
+- Replaced the public gallery with a manually reviewed no-person set: `work_013`, `work_167`, `work_208`, `work_249`, `work_101`, `work_106`, `work_111`, and `work_151`.
 - Added a browser-only quote summary flow. It does not invent a contact address or silently send data.
 - Added a local site check for references and inline JavaScript.
+- The site check now fails if the public gallery changes without updating the reviewed asset list.
 
 ## Follow-up
 

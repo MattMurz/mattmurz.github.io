@@ -5,6 +5,7 @@ const warpedCanvas = document.getElementById('warpedCanvas');
 const canvasesEl = document.getElementById('canvases');
 const resultEl = document.getElementById('result');
 const autoBtn = document.getElementById('autoDetectBtn');
+const sampleBtn = document.getElementById('sampleBtn');
 
 let currentImage = null;
 let activeObjectUrl = null;
@@ -14,10 +15,7 @@ function setStatus(message, tone = '') {
   resultEl.className = `status ${tone}`.trim();
 }
 
-fileInput.addEventListener('change', (event) => {
-  const file = event.target.files.item(0);
-  if (!file) return;
-
+function loadImageFile(file) {
   currentImage = null;
   autoBtn.disabled = true;
   fileNameEl.textContent = file.name;
@@ -54,6 +52,28 @@ fileInput.addEventListener('change', (event) => {
     fileNameEl.textContent = 'Nie udało się wczytać pliku';
     setStatus('Nie udało się otworzyć zdjęcia. Wybierz inny plik.', 'is-error');
   };
+}
+
+fileInput.addEventListener('change', (event) => {
+  const file = event.target.files.item(0);
+  if (file) loadImageFile(file);
+});
+
+sampleBtn.addEventListener('click', async () => {
+  sampleBtn.disabled = true;
+  setStatus('Wczytuję bezpieczny wzorzec A4…');
+
+  try {
+    const response = await fetch('sample-a4.jpg');
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const blob = await response.blob();
+    loadImageFile(new File(Array.of(blob), 'wzorzec-miarka-a4.jpg', { type: blob.type }));
+  } catch (error) {
+    console.error(error);
+    setStatus('Nie udało się wczytać wzorca. Spróbuj ponownie.', 'is-error');
+  } finally {
+    sampleBtn.disabled = false;
+  }
 });
 
 autoBtn.addEventListener('click', async () => {
@@ -74,7 +94,7 @@ autoBtn.addEventListener('click', async () => {
   try {
     const corners = await detectA4(inputCanvas);
     if (!corners) {
-      setStatus('Nie wykryłem całej kartki. Spróbuj zdjęcia z lepszym światłem i widocznymi czterema narożnikami.', 'is-warning');
+      setStatus('Nie wykryłem wiarygodnie całej kartki. Użyj oryginalnego zdjęcia zamiast zrzutu ekranu, zbliż telefon i pokaż cztery narożniki A4.', 'is-warning');
       return;
     }
 

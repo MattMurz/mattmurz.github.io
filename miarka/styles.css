@@ -207,6 +207,7 @@ h1 {
 }
 
 .file-button,
+#sampleBtn,
 #autoDetectBtn {
   display: inline-flex;
   min-height: 50px;
@@ -216,6 +217,25 @@ h1 {
   font-weight: 750;
   cursor: pointer;
   transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+#sampleBtn {
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 0 18px;
+  border: 1px solid #49617f;
+  background: rgba(8, 17, 31, 0.58);
+  color: #dbeafe;
+}
+
+#sampleBtn:hover:not(:disabled) {
+  border-color: #7ba4da;
+  background: rgba(19, 36, 59, 0.9);
+}
+
+#sampleBtn:disabled {
+  cursor: wait;
+  opacity: 0.58;
 }
 
 .file-button {
@@ -432,6 +452,7 @@ footer strong {
   }
 
   #autoDetectBtn,
+  #sampleBtn,
   .status {
     grid-column: 1;
   }

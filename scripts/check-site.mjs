@@ -18,6 +18,14 @@ const required = Array.of(
   'marketing/generated/marketing-pack.md',
   'marketing/generated/review-manifest.json',
   'docs/MARKETING_RECOVERY.md',
+  'assets/work_013.jpg',
+  'assets/work_167.jpg',
+  'assets/work_208.jpg',
+  'assets/work_249.jpg',
+  'assets/work_101.jpg',
+  'assets/work_106.jpg',
+  'assets/work_111.jpg',
+  'assets/work_151.jpg',
 );
 
 const missing = required.filter((relativePath) => !fs.existsSync(path.join(root, relativePath)));
@@ -51,6 +59,16 @@ for (const htmlPath of Array.of('index.html', 'miarka/index.html')) {
     if (!fs.existsSync(target)) throw new Error(`${htmlPath} references missing file: ${reference}`);
   }
 }
+
+const indexHtml = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+for (const id of Array.of('calcForm', 'areaResult', 'quoteForm', 'quoteStatus', 'quoteOutput', 'copyQuote')) {
+  if (!indexHtml.includes(`id="${id}"`)) throw new Error(`Homepage is missing required element: ${id}`);
+}
+if (/<form[^>]+action=/i.test(indexHtml)) throw new Error('Homepage forms must remain local-only.');
+if (/fetch\s*\(|XMLHttpRequest|sendBeacon/i.test(indexHtml)) throw new Error('Homepage must not send form data.');
+
+const inlineScripts = Array.from(indexHtml.matchAll(/<script>([\s\S]*?)<\/script>/g), (match) => match[1]);
+for (const script of inlineScripts) new vm.Script(script, { filename: 'index.html inline script' });
 
 const miarkaHtml = fs.readFileSync(path.join(root, 'miarka/index.html'), 'utf8');
 for (const id of Array.of('file', 'fileName', 'sampleBtn', 'autoDetectBtn', 'result', 'inputCanvas', 'warpedCanvas')) {

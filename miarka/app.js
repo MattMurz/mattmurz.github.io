@@ -15,6 +15,32 @@ function setStatus(message, tone = '') {
   resultEl.className = `status ${tone}`.trim();
 }
 
+function pointDistance(first, second) {
+  return Math.hypot(first.x - second.x, first.y - second.y);
+}
+
+function a4OutputGeometry(corners, pixelsPerMillimetre = 4) {
+  const averageWidth = (
+    pointDistance(corners[0], corners[1]) +
+    pointDistance(corners[3], corners[2])
+  ) / 2;
+  const averageHeight = (
+    pointDistance(corners[0], corners[3]) +
+    pointDistance(corners[1], corners[2])
+  ) / 2;
+  const landscape = averageWidth > averageHeight;
+  const widthMm = landscape ? 297 : 210;
+  const heightMm = landscape ? 210 : 297;
+
+  return {
+    orientation: landscape ? 'pozioma' : 'pionowa',
+    widthMm,
+    heightMm,
+    widthPixels: widthMm * pixelsPerMillimetre,
+    heightPixels: heightMm * pixelsPerMillimetre,
+  };
+}
+
 function loadImageFile(file) {
   currentImage = null;
   autoBtn.disabled = true;
@@ -99,13 +125,24 @@ autoBtn.addEventListener('click', async () => {
     }
 
     if (window.setKonvaCorners) window.setKonvaCorners(corners);
+
+    const geometry = a4OutputGeometry(corners);
+    warpedCanvas.width = geometry.widthPixels;
+    warpedCanvas.height = geometry.heightPixels;
     warpToA4(inputCanvas, corners, warpedCanvas);
 
-    const mmPerPixelX = 210 / warpedCanvas.width;
-    const mmPerPixelY = 297 / warpedCanvas.height;
-    window.measurement = { mmPerPixelX, mmPerPixelY };
+    const mmPerPixelX = geometry.widthMm / warpedCanvas.width;
+    const mmPerPixelY = geometry.heightMm / warpedCanvas.height;
+    window.measurement = {
+      mmPerPixelX,
+      mmPerPixelY,
+      orientation: geometry.orientation,
+    };
 
-    setStatus(`Gotowe. Skala wynosi ${mmPerPixelX.toFixed(4)} mm na piksel.`, 'is-success');
+    setStatus(
+      `Gotowe. A4: ${geometry.orientation}. Skala wynosi ${mmPerPixelX.toFixed(4)} mm na piksel.`,
+      'is-success',
+    );
   } catch (error) {
     console.error(error);
     setStatus('Wystąpił błąd podczas analizy. Spróbuj ponownie lub wybierz inne zdjęcie.', 'is-error');

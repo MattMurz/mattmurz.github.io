@@ -1,4 +1,4 @@
-﻿# Quote request template
+# Quote request template
 
 Client should send:
 1. Name
@@ -8,7 +8,6 @@ Client should send:
 5. Photos or short video
 6. Urgency
 7. Any budget/priority
-8. Parking/access notes
+8. Parking / access notes
 
-Future:
-Replace this with Jotform link.
+Future: replace this with the approved Jotform link after the connector is verified.

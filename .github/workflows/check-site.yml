@@ -15,8 +15,15 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
+      - name: Fetch the tested commit
+        env:
+          REPOSITORY: ${{ github.repository }}
+          TOKEN: ${{ github.token }}
+        run: |
+          git init site
+          git -C site remote add origin "https://x-access-token:${TOKEN}@github.com/${REPOSITORY}.git"
+          git -C site fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+          git -C site checkout --detach "${GITHUB_SHA}"
 
       - name: Validate site and Miarka assets
-        run: node scripts/check-site.mjs
+        run: node site/scripts/check-site.mjs site

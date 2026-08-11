@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "brand": "Profito / ConTech",
+  "market": "West London",
+  "portfolioUrl": "https://profito-systems.github.io/",
+  "contact": "PHONE_OR_WHATSAPP_REQUIRED",
+  "servicesPl": [
+    "przygotowanie powierzchni",
+    "przygotowanie pod malowanie",
+    "poprawki / snagging",
+    "drobne naprawy",
+    "prace wykończeniowe",
+    "patio / driveway / prace zewnętrzne"
+  ],
+  "servicesEn": [
+    "surface preparation",
+    "painting preparation",
+    "finishing corrections",
+    "small repairs",
+    "practical property work",
+    "patio / driveway / exterior support"
+  ],
+  "quoteFields": [
+    "Name",
+    "Phone",
+    "Postcode / area",
+    "What needs doing",
+    "Photos or short video",
+    "Urgency",
+    "Budget or priority",
+    "Parking / access notes"
+  ],
+  "connectors": {
+    "githubPages": "verified",
+    "googleDriveEvidence": "verified",
+    "geminiGeneration": "not_configured",
+    "jotformIntake": "not_configured",
+    "gmailNotifications": "not_configured",
+    "telegramApproval": "historically_verified_rebuild_required",
+    "googleAdsPublishing": "disabled"
+  },
+  "publication": {
+    "mode": "dry_run",
+    "requiresManualApproval": true,
+    "paidCampaignsAllowed": false
+  }
+}

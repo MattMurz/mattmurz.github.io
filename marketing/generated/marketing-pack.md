@@ -1,12 +1,15 @@
-# Ads and messages — PL/EN
+# Profito marketing pack — dry run
 
-Recovered from the verified Google Drive copy. These are source drafts, not published advertisements.
+Status: AWAITING MANUAL APPROVAL
 
-## Gumtree short PL
+No advertisement has been published and no paid campaign is enabled.
+
+## Gumtree PL
 
 Remonty, wykończenia, poprawki i handyman — West London.
 
 Zakres:
+
 - przygotowanie powierzchni
 - przygotowanie pod malowanie
 - poprawki / snagging
@@ -14,17 +17,16 @@ Zakres:
 - prace wykończeniowe
 - patio / driveway / prace zewnętrzne
 
-Portfolio:
-WSTAW LINK DO STRONY
+Portfolio: https://profito-systems.github.io/
 
-Kontakt:
-TELEFON / WHATSAPP
+Kontakt: PHONE_OR_WHATSAPP_REQUIRED
 
-## Gumtree short EN
+## Gumtree EN
 
 Renovation, finishing, snagging and handyman work — West London.
 
 Work examples:
+
 - surface preparation
 - painting preparation
 - finishing corrections
@@ -32,15 +34,14 @@ Work examples:
 - practical property work
 - patio / driveway / exterior support
 
-Portfolio:
-PASTE WEBSITE LINK
+Portfolio: https://profito-systems.github.io/
 
-Contact:
-PHONE / WHATSAPP
+Contact: PHONE_OR_WHATSAPP_REQUIRED
 
 ## WhatsApp first reply EN
 
 Hi, thanks for the message. Please send:
+
 1. What needs doing
 2. Area/postcode
 3. Photos/video
@@ -48,3 +49,14 @@ Hi, thanks for the message. Please send:
 5. Any budget or priority
 
 I’ll reply with the next step or arrange a viewing if needed.
+
+## Quote request fields
+
+- Name
+- Phone
+- Postcode / area
+- What needs doing
+- Photos or short video
+- Urgency
+- Budget or priority
+- Parking / access notes

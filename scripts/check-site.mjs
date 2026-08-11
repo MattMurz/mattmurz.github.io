@@ -14,6 +14,10 @@ const required = Array.of(
   'miarka/src/cv/detectA4.js',
   'miarka/src/cv/warp.js',
   'miarka/src/ui/konvaLayer.js',
+  'marketing/source/marketing-pack.json',
+  'marketing/generated/marketing-pack.md',
+  'marketing/generated/review-manifest.json',
+  'docs/MARKETING_RECOVERY.md',
 );
 
 const missing = required.filter((relativePath) => !fs.existsSync(path.join(root, relativePath)));

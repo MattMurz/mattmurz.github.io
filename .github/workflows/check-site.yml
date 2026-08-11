@@ -25,5 +25,5 @@ jobs:
           git -C site fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
           git -C site checkout --detach "${GITHUB_SHA}"
 
-      - name: Validate site and Miarka assets
-        run: node site/scripts/check-site.mjs site
+      - name: Validate site, Miarka, and marketing recovery assets
+        run: npm --prefix site run check

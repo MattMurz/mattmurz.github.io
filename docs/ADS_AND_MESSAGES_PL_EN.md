@@ -1,26 +1,28 @@
-﻿# Ads and messages ÔÇö PL/EN
+# Ads and messages — PL/EN
+
+Recovered from the verified Google Drive copy. These are source drafts, not published advertisements.
 
 ## Gumtree short PL
 
-Remonty, wyko┼äczenia, poprawki i handyman ÔÇö West London.
+Remonty, wykończenia, poprawki i handyman — West London.
 
 Zakres:
 - przygotowanie powierzchni
 - przygotowanie pod malowanie
 - poprawki / snagging
 - drobne naprawy
-- prace wyko┼äczeniowe
-- patio / driveway / prace zewn─Ötrzne
+- prace wykończeniowe
+- patio / driveway / prace zewnętrzne
 
 Portfolio:
-[WSTAW LINK DO STRONY]
+WSTAW LINK DO STRONY
 
 Kontakt:
-[TELEFON / WHATSAPP]
+TELEFON / WHATSAPP
 
 ## Gumtree short EN
 
-Renovation, finishing, snagging and handyman work ÔÇö West London.
+Renovation, finishing, snagging and handyman work — West London.
 
 Work examples:
 - surface preparation
@@ -31,10 +33,10 @@ Work examples:
 - patio / driveway / exterior support
 
 Portfolio:
-[PASTE WEBSITE LINK]
+PASTE WEBSITE LINK
 
 Contact:
-[PHONE / WHATSAPP]
+PHONE / WHATSAPP
 
 ## WhatsApp first reply EN
 
@@ -45,4 +47,4 @@ Hi, thanks for the message. Please send:
 4. When you need it
 5. Any budget or priority
 
-IÔÇÖll reply with the next step or arrange a viewing if needed.
+I’ll reply with the next step or arrange a viewing if needed.

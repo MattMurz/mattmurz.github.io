@@ -1,0 +1,40 @@
+name: Refresh GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+
+jobs:
+  request-pages-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Request a Pages build
+        env:
+          API_URL: ${{ github.api_url }}
+          REPOSITORY: ${{ github.repository }}
+          TOKEN: ${{ github.token }}
+        run: |
+          status="$(curl --silent --show-error --output response.json --write-out '%{http_code}' \
+            --request POST \
+            --header "Accept: application/vnd.github+json" \
+            --header "Authorization: Bearer ${TOKEN}" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            "${API_URL}/repos/${REPOSITORY}/pages/builds")"
+
+          cat response.json
+
+          if test "${status}" != "201"; then
+            echo "Pages build request failed with HTTP ${status}."
+            exit 1
+          fi

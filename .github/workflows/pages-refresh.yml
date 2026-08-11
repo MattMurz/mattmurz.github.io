@@ -49,29 +49,9 @@ jobs:
 
       - name: Upload the Pages artifact
         id: upload
-        run: |
-          mkdir -p "${RUNNER_TEMP}/pages-tools"
-          cd "${RUNNER_TEMP}/pages-tools"
-          npm install --silent --no-audit --no-fund @actions/artifact@6.2.1
-
-          node --input-type=module <<'NODE'
-          import { DefaultArtifactClient } from '@actions/artifact'
-          import { appendFileSync } from 'node:fs'
-          import { join } from 'node:path'
-
-          const temporaryDirectory = process.env.RUNNER_TEMP
-          const archive = join(temporaryDirectory, 'artifact.tar')
-          const client = new DefaultArtifactClient()
-          const result = await client.uploadArtifact(
-            'github-pages',
-            Array.of(archive),
-            temporaryDirectory,
-            { retentionDays: 1 }
-          )
-
-          console.log(`Uploaded Pages artifact ${result.id}.`)
-          appendFileSync(process.env.GITHUB_OUTPUT, `artifact_id=${result.id}\n`)
-          NODE
+        uses: ./site/.github/actions/upload-pages-artifact
+        with:
+          path: ${{ runner.temp }}/artifact.tar
 
       - name: Create the Pages deployment
         id: deploy

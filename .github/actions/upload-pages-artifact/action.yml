@@ -1,0 +1,15 @@
+name: Upload Pages artifact
+description: Upload a prebuilt Pages archive with GitHub's artifact runtime
+
+inputs:
+  path:
+    description: Absolute path to artifact.tar
+    required: true
+
+outputs:
+  artifact_id:
+    description: Numeric ID of the uploaded artifact
+
+runs:
+  using: node20
+  main: index.js

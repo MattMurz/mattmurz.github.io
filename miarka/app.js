@@ -1,15 +1,27 @@
 const fileInput = document.getElementById('file');
+const fileNameEl = document.getElementById('fileName');
 const inputCanvas = document.getElementById('inputCanvas');
 const warpedCanvas = document.getElementById('warpedCanvas');
+const canvasesEl = document.getElementById('canvases');
 const resultEl = document.getElementById('result');
 const autoBtn = document.getElementById('autoDetectBtn');
 
 let currentImage = null;
 let activeObjectUrl = null;
 
-fileInput.addEventListener('change', async (e) => {
-  const file = e.target.files[0];
+function setStatus(message, tone = '') {
+  resultEl.textContent = message;
+  resultEl.className = `status ${tone}`.trim();
+}
+
+fileInput.addEventListener('change', (event) => {
+  const file = event.target.files.item(0);
   if (!file) return;
+
+  currentImage = null;
+  autoBtn.disabled = true;
+  fileNameEl.textContent = file.name;
+  setStatus('Wczytuję zdjęcie…');
 
   const img = new Image();
   if (activeObjectUrl) URL.revokeObjectURL(activeObjectUrl);
@@ -21,13 +33,17 @@ fileInput.addEventListener('change', async (e) => {
     if (activeObjectUrl !== objectUrl) return;
     URL.revokeObjectURL(objectUrl);
     activeObjectUrl = null;
-    currentImage = img;
-    inputCanvas.width = img.width;
-    inputCanvas.height = img.height;
-    const ctx = inputCanvas.getContext('2d');
-    ctx.drawImage(img, 0, 0);
 
-    resultEl.textContent = 'Obraz załadowany.';
+    const maxSide = 1800;
+    const scale = Math.min(1, maxSide / Math.max(img.naturalWidth, img.naturalHeight));
+    inputCanvas.width = Math.max(1, Math.round(img.naturalWidth * scale));
+    inputCanvas.height = Math.max(1, Math.round(img.naturalHeight * scale));
+    inputCanvas.getContext('2d').drawImage(img, 0, 0, inputCanvas.width, inputCanvas.height);
+
+    currentImage = img;
+    autoBtn.disabled = false;
+    canvasesEl.classList.remove('is-hidden');
+    setStatus('Zdjęcie gotowe. Uruchom wykrywanie kartki A4.', 'is-success');
     if (window.initKonvaLayer) window.initKonvaLayer(inputCanvas, warpedCanvas);
   };
 
@@ -35,37 +51,46 @@ fileInput.addEventListener('change', async (e) => {
     if (activeObjectUrl !== objectUrl) return;
     URL.revokeObjectURL(objectUrl);
     activeObjectUrl = null;
-    currentImage = null;
-    resultEl.textContent = 'Nie udało się wczytać wybranego obrazu.';
+    fileNameEl.textContent = 'Nie udało się wczytać pliku';
+    setStatus('Nie udało się otworzyć zdjęcia. Wybierz inny plik.', 'is-error');
   };
 });
 
 autoBtn.addEventListener('click', async () => {
   if (!currentImage) {
-    resultEl.textContent = 'Wgraj zdjęcie najpierw.';
+    setStatus('Najpierw wybierz zdjęcie z urządzenia.', 'is-warning');
     return;
   }
-
-  resultEl.textContent = 'Wykrywanie...';
 
   if (typeof cv === 'undefined' || !cv.imread || typeof detectA4 !== 'function' || typeof warpToA4 !== 'function') {
-    resultEl.textContent = 'OpenCV.js nie załadowany jeszcze. Odczekaj chwilę.';
+    setStatus('Moduł pomiarowy jeszcze się uruchamia. Odczekaj chwilę i spróbuj ponownie.', 'is-warning');
     return;
   }
 
-  const corners = await detectA4(inputCanvas);
-  if (!corners) {
-    resultEl.textContent = 'Nie wykryto kartki A4.';
-    return;
+  autoBtn.disabled = true;
+  autoBtn.textContent = 'Wykrywam kartkę…';
+  setStatus('Analizuję krawędzie i narożniki kartki A4…');
+
+  try {
+    const corners = await detectA4(inputCanvas);
+    if (!corners) {
+      setStatus('Nie wykryłem całej kartki. Spróbuj zdjęcia z lepszym światłem i widocznymi czterema narożnikami.', 'is-warning');
+      return;
+    }
+
+    if (window.setKonvaCorners) window.setKonvaCorners(corners);
+    warpToA4(inputCanvas, corners, warpedCanvas);
+
+    const mmPerPixelX = 210 / warpedCanvas.width;
+    const mmPerPixelY = 297 / warpedCanvas.height;
+    window.measurement = { mmPerPixelX, mmPerPixelY };
+
+    setStatus(`Gotowe. Skala wynosi ${mmPerPixelX.toFixed(4)} mm na piksel.`, 'is-success');
+  } catch (error) {
+    console.error(error);
+    setStatus('Wystąpił błąd podczas analizy. Spróbuj ponownie lub wybierz inne zdjęcie.', 'is-error');
+  } finally {
+    autoBtn.disabled = false;
+    autoBtn.textContent = 'Wykryj kartkę A4';
   }
-
-  if (window.setKonvaCorners) window.setKonvaCorners(corners);
-  warpToA4(inputCanvas, corners, warpedCanvas);
-
-  const mmPerPixelX = 210 / warpedCanvas.width;
-  const mmPerPixelY = 297 / warpedCanvas.height;
-
-  window.measurement = { mmPerPixelX, mmPerPixelY };
-
-  resultEl.textContent = `Skala: ${mmPerPixelX.toFixed(4)} mm/px`;
 });

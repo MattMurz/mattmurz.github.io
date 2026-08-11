@@ -3,63 +3,183 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profito - System Wycen</title>
+  <meta name="description" content="Profito: pomiary, wyceny, realizacje i narzędzie Miarka A4.">
+  <title>Profito - Pomiary i Wyceny</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="navbar">
-    <div class="logo">Profito</div>
-    <nav>
+    <a class="logo" href="#top" aria-label="Profito, początek strony">Profito</a>
+    <nav aria-label="Główna nawigacja">
       <a href="#kalkulator">Kalkulator</a>
       <a href="/miarka/">Miarka A4</a>
       <a href="#realizacje">Realizacje</a>
+      <a href="#zapytanie">Zapytanie</a>
     </nav>
   </header>
 
-  <main class="container">
+  <main id="top" class="container">
     <section class="hero">
-      <h1>Metrówka i Wyceny</h1>
-      <p>Szybkie i precyzyjne kosztorysy prac wykończeniowych.</p>
-      <p><a class="btn-primary" href="/miarka/">Otwórz Miarkę A4</a></p>
+      <p class="eyebrow">Pomiary · Wyceny · Realizacje</p>
+      <h1>Od pomiaru do konkretnej wyceny</h1>
+      <p>Oblicz powierzchnię, użyj zdjęcia z kartką A4 jako skalą albo przygotuj kompletne zapytanie o realizację.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="/miarka/">Otwórz Miarkę A4</a>
+        <a class="btn-secondary" href="#zapytanie">Przygotuj zapytanie</a>
+      </div>
     </section>
 
     <section id="kalkulator" class="app-module">
       <div class="card">
-        <h2>Nowy pomiar</h2>
+        <p class="eyebrow">Szybki pomiar</p>
+        <h2>Kalkulator powierzchni</h2>
         <form class="calc-form" id="calcForm">
-          <div class="input-group">
-            <label for="length">Długość (m)</label>
-            <input id="length" name="length" type="number" step="0.01" min="0" placeholder="np. 5.20" required>
-          </div>
-          <div class="input-group">
-            <label for="width">Szerokość (m)</label>
-            <input id="width" name="width" type="number" step="0.01" min="0" placeholder="np. 3.10" required>
+          <div class="form-grid">
+            <div class="input-group">
+              <label for="length">Długość w metrach</label>
+              <input id="length" name="length" type="number" step="0.01" min="0.01" placeholder="np. 5.20" required>
+            </div>
+            <div class="input-group">
+              <label for="width">Szerokość w metrach</label>
+              <input id="width" name="width" type="number" step="0.01" min="0.01" placeholder="np. 3.10" required>
+            </div>
           </div>
           <button type="submit" class="btn-primary">Oblicz powierzchnię</button>
         </form>
         <div class="result-box" aria-live="polite">
-          <span>Wynik:</span>
-          <span class="value" id="areaResult">0.00 m²</span>
+          <span>Wynik</span>
+          <strong class="value" id="areaResult">0.00 m²</strong>
         </div>
       </div>
     </section>
 
-    <section id="realizacje" class="app-module">
+    <section class="app-module tool-card">
       <div class="card">
+        <p class="eyebrow">Narzędzie w przeglądarce</p>
         <h2>Miarka A4</h2>
-        <p>Wgraj zdjęcie z kartką A4, a moduł pomiarowy Profito spróbuje ją wykryć i wyznaczyć skalę pomiaru.</p>
+        <p>Wgraj zdjęcie z kartką A4. Moduł spróbuje wykryć kartkę, skorygować perspektywę i ustalić skalę pomiaru lokalnie na urządzeniu.</p>
         <a class="btn-primary" href="/miarka/">Uruchom moduł pomiarowy</a>
       </div>
     </section>
+
+    <section id="realizacje" class="app-module">
+      <div class="section-heading">
+        <p class="eyebrow">Wybrane prace</p>
+        <h2>Realizacje</h2>
+        <p>Przykładowe materiały z istniejącego archiwum projektów Profito.</p>
+      </div>
+      <div class="gallery">
+        <figure><img src="assets/work_013.jpg" loading="lazy" alt="Detal ukończonego wnętrza"><figcaption>Wykończenie wnętrza</figcaption></figure>
+        <figure><img src="assets/work_167.jpg" loading="lazy" alt="Ukończone wnętrze"><figcaption>Projekt wnętrza</figcaption></figure>
+        <figure><img src="assets/work_208.jpg" loading="lazy" alt="Materiały instalacyjne"><figcaption>Instalacja</figcaption></figure>
+        <figure><img src="assets/work_249.jpg" loading="lazy" alt="Ukończona przestrzeń kuchenna"><figcaption>Gotowa przestrzeń</figcaption></figure>
+        <figure><img src="assets/work_101.jpg" loading="lazy" alt="Detal prac budowlanych"><figcaption>Prace budowlane</figcaption></figure>
+        <figure><img src="assets/work_106.jpg" loading="lazy" alt="Narzędzia i materiały remontowe"><figcaption>Przygotowanie realizacji</figcaption></figure>
+        <figure><img src="assets/work_111.jpg" loading="lazy" alt="Materiały przygotowane do montażu"><figcaption>Prace montażowe</figcaption></figure>
+        <figure><img src="assets/work_151.jpg" loading="lazy" alt="Detal gotowej realizacji"><figcaption>Gotowy efekt</figcaption></figure>
+      </div>
+    </section>
+
+    <section id="zapytanie" class="app-module">
+      <div class="card quote-layout">
+        <div>
+          <p class="eyebrow">Następny krok</p>
+          <h2>Przygotuj zapytanie</h2>
+          <p>Formularz tworzy podsumowanie wyłącznie na tym urządzeniu. Niczego sam nie wysyła i nie zapisuje na serwerze.</p>
+        </div>
+        <form id="quoteForm">
+          <div class="form-grid">
+            <div class="input-group">
+              <label for="quoteName">Imię i nazwisko</label>
+              <input id="quoteName" name="name" autocomplete="name" required>
+            </div>
+            <div class="input-group">
+              <label for="quotePhone">Telefon</label>
+              <input id="quotePhone" name="phone" type="tel" autocomplete="tel" required>
+            </div>
+            <div class="input-group">
+              <label for="quoteArea">Kod pocztowy lub okolica</label>
+              <input id="quoteArea" name="area" autocomplete="postal-code" required>
+            </div>
+            <div class="input-group">
+              <label for="quoteUrgency">Termin</label>
+              <select id="quoteUrgency" name="urgency">
+                <option value="Elastyczny">Elastyczny</option>
+                <option value="Wkrótce">Wkrótce</option>
+                <option value="Pilne">Pilne</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="quoteWork">Co trzeba zrobić</label>
+            <textarea id="quoteWork" name="work" rows="5" required></textarea>
+          </div>
+          <div class="input-group">
+            <label for="quoteMedia">Link do zdjęć lub krótkiego filmu</label>
+            <input id="quoteMedia" name="media" type="url" placeholder="https://">
+          </div>
+          <div class="form-grid">
+            <div class="input-group">
+              <label for="quotePriority">Budżet lub priorytet</label>
+              <input id="quotePriority" name="priority">
+            </div>
+            <div class="input-group">
+              <label for="quoteAccess">Parking i dostęp</label>
+              <input id="quoteAccess" name="access">
+            </div>
+          </div>
+          <button class="btn-primary" type="submit">Przygotuj podsumowanie</button>
+          <p id="quoteStatus" class="status" role="status" aria-live="polite"></p>
+          <pre id="quoteOutput" class="quote-output" hidden></pre>
+          <button id="copyQuote" class="btn-secondary" type="button" hidden>Skopiuj podsumowanie</button>
+        </form>
+      </div>
+    </section>
   </main>
+
+  <footer>Profito · praktyczny pomiar, jasny zakres, konkretna realizacja</footer>
 
   <script>
     document.getElementById('calcForm').addEventListener('submit', function (event) {
       event.preventDefault();
       const length = Number(document.getElementById('length').value);
       const width = Number(document.getElementById('width').value);
-      const result = length * width;
-      document.getElementById('areaResult').textContent = `${result.toFixed(2)} m²`;
+      document.getElementById('areaResult').textContent = `${(length * width).toFixed(2)} m²`;
+    });
+
+    function quoteSummary(form) {
+      const data = new FormData(form);
+      return [
+        'Zapytanie Profito',
+        '',
+        `Imię i nazwisko: ${data.get('name')}`,
+        `Telefon: ${data.get('phone')}`,
+        `Kod pocztowy lub okolica: ${data.get('area')}`,
+        `Co trzeba zrobić: ${data.get('work')}`,
+        `Zdjęcia lub film: ${data.get('media') || '-'}`,
+        `Termin: ${data.get('urgency')}`,
+        `Budżet lub priorytet: ${data.get('priority') || '-'}`,
+        `Parking i dostęp: ${data.get('access') || '-'}`,
+      ].join('\n');
+    }
+
+    document.getElementById('quoteForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const output = document.getElementById('quoteOutput');
+      output.textContent = quoteSummary(event.currentTarget);
+      output.hidden = false;
+      document.getElementById('copyQuote').hidden = false;
+      document.getElementById('quoteStatus').textContent = 'Podsumowanie jest gotowe. Sprawdź je przed skopiowaniem.';
+    });
+
+    document.getElementById('copyQuote').addEventListener('click', async function () {
+      const output = document.getElementById('quoteOutput');
+      try {
+        await navigator.clipboard.writeText(output.textContent);
+        document.getElementById('quoteStatus').textContent = 'Podsumowanie skopiowane.';
+      } catch {
+        document.getElementById('quoteStatus').textContent = 'Nie udało się skopiować automatycznie. Zaznacz tekst poniżej ręcznie.';
+      }
     });
   </script>
 </body>

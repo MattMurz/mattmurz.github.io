@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "status": "awaiting_manual_approval",
+  "publicationMode": "dry_run",
+  "paidCampaignsAllowed": false,
+  "connectors": {
+    "githubPages": "verified",
+    "googleDriveEvidence": "verified",
+    "geminiGeneration": "not_configured",
+    "jotformIntake": "not_configured",
+    "gmailNotifications": "not_configured",
+    "telegramApproval": "historically_verified_rebuild_required",
+    "googleAdsPublishing": "disabled"
+  },
+  "generatedFiles": [
+    "marketing/generated/marketing-pack.md"
+  ]
+}

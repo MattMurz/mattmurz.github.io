@@ -34,7 +34,7 @@ async function main() {
       "@actions",
       "artifact",
       "lib",
-      "index.js",
+      "artifact.js",
     ),
   ).href;
   const { DefaultArtifactClient } = await import(moduleUrl);

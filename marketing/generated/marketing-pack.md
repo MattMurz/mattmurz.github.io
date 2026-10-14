@@ -17,7 +17,7 @@ Zakres:
 - prace wykończeniowe
 - patio / driveway / prace zewnętrzne
 
-Portfolio: https://profito-systems.github.io/
+Portfolio: https://profito.systems/
 
 Kontakt: PHONE_OR_WHATSAPP_REQUIRED
 
@@ -34,7 +34,7 @@ Work examples:
 - practical property work
 - patio / driveway / exterior support
 
-Portfolio: https://profito-systems.github.io/
+Portfolio: https://profito.systems/
 
 Contact: PHONE_OR_WHATSAPP_REQUIRED
 

@@ -73,6 +73,18 @@ for (const htmlPath of Array.of('index.html', 'miarka/index.html')) {
 }
 
 const indexHtml = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+
+const miarkaBrandHtml = fs.readFileSync(path.join(root, 'miarka/index.html'), 'utf8');
+if (!indexHtml.includes('<title data-i18n="meta_title">Profito Systems')) throw new Error('Homepage title must use Profito Systems.');
+if (!indexHtml.includes('>Profito Systems</a>')) throw new Error('Visible homepage brand must be Profito Systems.');
+if (indexHtml.includes('Profito.system')) throw new Error('Legacy Profito.system branding remains.');
+if (!indexHtml.includes('href="mailto:profito.systems@gmail.com"')) throw new Error('Direct business contact email is missing.');
+if (!indexHtml.includes('property="og:site_name" content="Profito Systems"')) throw new Error('Social site name is inconsistent.');
+if (!indexHtml.includes('rel="canonical" href="' + canonicalUrl + '/"')) throw new Error('Homepage canonical link is inconsistent.');
+if (!miarkaBrandHtml.includes('<title>Miarka — Profito Systems</title>')) throw new Error('Miarka branding is inconsistent.');
+if (!miarkaBrandHtml.includes('rel="canonical" href="' + canonicalUrl + '/miarka/"')) throw new Error('Miarka canonical URL is inconsistent.');
+if (marketing.brand !== 'Profito Systems') throw new Error('Marketing brand must be Profito Systems.');
+
 for (const id of Array.of('calcForm', 'areaResult', 'quoteForm', 'quoteStatus', 'quoteOutput', 'copyQuote', 'supplierCountry', 'tradeCountry')) {
   if (!indexHtml.includes(`id="${id}"`)) throw new Error(`Homepage is missing required element: ${id}`);
 }

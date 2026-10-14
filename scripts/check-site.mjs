@@ -5,7 +5,6 @@ import vm from 'node:vm';
 const root = process.argv[2] ? path.resolve(process.argv[2]) : process.cwd();
 const required = Array.of(
   'index.html',
-  'CNAME',
   'style.css',
   'google0ad6223d442a6e87.html',
   'miarka/index.html',
@@ -29,10 +28,9 @@ const required = Array.of(
   'assets/work_151.jpg',
 );
 
-const canonicalDomain = 'profito.systems';
+const canonicalDomain = 'mattmurz.github.io';
 const canonicalUrl = 'https://' + canonicalDomain;
-const cname = fs.readFileSync(path.join(root, 'CNAME'), 'utf8').trim();
-if (cname !== canonicalDomain) throw new Error('GitHub Pages custom domain differs from canonical domain.');
+if (fs.existsSync(path.join(root, 'CNAME'))) throw new Error('Custom-domain CNAME must not be set while using free GitHub Pages.');
 const robots = fs.readFileSync(path.join(root, 'robots.txt'), 'utf8');
 if (!robots.includes('Sitemap: ' + canonicalUrl + '/sitemap.xml')) throw new Error('robots.txt sitemap URL differs from canonical domain.');
 const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');

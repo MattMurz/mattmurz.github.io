@@ -5,6 +5,7 @@ import vm from 'node:vm';
 const root = process.argv[2] ? path.resolve(process.argv[2]) : process.cwd();
 const required = Array.of(
   'index.html',
+  'CNAME',
   'style.css',
   'google0ad6223d442a6e87.html',
   'miarka/index.html',
@@ -27,6 +28,19 @@ const required = Array.of(
   'assets/work_111.jpg',
   'assets/work_151.jpg',
 );
+
+const canonicalDomain = 'profito.systems';
+const canonicalUrl = 'https://' + canonicalDomain;
+const cname = fs.readFileSync(path.join(root, 'CNAME'), 'utf8').trim();
+if (cname !== canonicalDomain) throw new Error('GitHub Pages custom domain differs from canonical domain.');
+const robots = fs.readFileSync(path.join(root, 'robots.txt'), 'utf8');
+if (!robots.includes('Sitemap: ' + canonicalUrl + '/sitemap.xml')) throw new Error('robots.txt sitemap URL differs from canonical domain.');
+const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+for (const canonicalPath of Array.of('/', '/miarka/')) {
+  if (!sitemap.includes('<loc>' + canonicalUrl + canonicalPath + '</loc>')) throw new Error('Missing canonical sitemap URL: ' + canonicalPath);
+}
+const marketing = JSON.parse(fs.readFileSync(path.join(root, 'marketing/source/marketing-pack.json'), 'utf8'));
+if (marketing.portfolioUrl !== canonicalUrl + '/') throw new Error('Marketing portfolio URL differs from canonical domain.');
 
 const missing = required.filter((relativePath) => !fs.existsSync(path.join(root, relativePath)));
 if (missing.length) throw new Error(`Missing required files: ${missing.join(', ')}`);

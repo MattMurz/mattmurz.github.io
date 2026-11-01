@@ -282,6 +282,17 @@ nav a:focus-visible {
   margin-top: 1.25rem;
 }
 
+/* Reuse the existing cards without squeezing platform names on desktop or mobile. */
+.trade-layout .supplier-grid {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+@media (max-width: 620px) {
+  .trade-layout .supplier-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .supplier-link {
   display: flex;
   min-height: 88px;

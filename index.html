@@ -222,8 +222,8 @@
     <section id="find-trade" class="app-module">
       <div class="section-heading">
         <p class="eyebrow" data-i18n="trade_eyebrow">Local trades · simple first</p>
-        <h2 data-i18n="trade_title">Find help nearby, or join the future local jobs pilot</h2>
-        <p data-i18n="trade_text">The homeowner side works now as a local search. The tradesperson model below is a transparent pilot concept, not a live paid marketplace yet.</p>
+        <h2 data-i18n="trade_title">Find local trades and existing job services</h2>
+        <p data-i18n="trade_text">Search local tradespeople or open independent UK service platforms. Profito does not operate a jobs marketplace or automatically share your details.</p>
       </div>
       <div class="trade-layout">
         <div class="card">
@@ -582,6 +582,30 @@
     for (const lang of Object.keys(existingPlatformTranslations)) {
       Object.assign(translations[lang], existingPlatformTranslations[lang]);
     }
+
+    const tradeHubCopy = {
+  "en": {
+    "trade_title": "Find local trades and existing job services",
+    "trade_text": "Search local tradespeople or open independent UK service platforms. Profito does not operate a jobs marketplace or automatically share your details."
+  },
+  "pl": {
+    "trade_title": "Lokalni fachowcy i istniejące platformy zleceń",
+    "trade_text": "Szukaj fachowców w okolicy lub otwórz niezależne serwisy działające w Wielkiej Brytanii. Profito nie prowadzi rynku zleceń ani nie przekazuje danych automatycznie."
+  },
+  "de": {
+    "trade_title": "Lokale Handwerker und bestehende Auftragsdienste",
+    "trade_text": "Suche Handwerker in deiner Nähe oder öffne unabhängige UK-Dienste. Profito betreibt keinen eigenen Auftragsmarkt und überträgt keine Daten automatisch."
+  },
+  "fr": {
+    "trade_title": "Artisans locaux et services existants",
+    "trade_text": "Trouvez des artisans à proximité ou ouvrez des services britanniques indépendants. Profito ne gère pas de marché de chantiers et ne transmet aucune donnée automatiquement."
+  },
+  "es": {
+    "trade_title": "Profesionales locales y servicios de trabajos existentes",
+    "trade_text": "Busca profesionales cercanos o abre servicios británicos independientes. Profito no gestiona un mercado de trabajos ni transmite datos automáticamente."
+  }
+};
+    for (const lang of Object.keys(tradeHubCopy)) Object.assign(translations[lang], tradeHubCopy[lang]);
 
     let currentLang = 'en';
 

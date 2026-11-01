@@ -255,18 +255,24 @@
             </div>
           </div>
           <button id="tradeSearchButton" class="btn-primary" type="button" data-i18n="trade_search">Search nearby trades</button>
+          <h4 data-i18n="trade_hub_find_title">Compare established UK services</h4>
+          <p class="privacy-note" data-i18n="trade_hub_find_note">These links open independent UK platforms. Your trade, area and private details are not transferred. Enter them on the provider's website.</p>
+          <div class="supplier-grid" id="tradePlatformLinks">
+            <a class="supplier-link" href="https://www.checkatrade.com/" target="_blank" rel="noopener noreferrer"><strong>Checkatrade</strong><span data-i18n="trade_hub_open">Open service</span></a>
+            <a class="supplier-link" href="https://www.mybuilder.com/find-a-service" target="_blank" rel="noopener noreferrer"><strong>MyBuilder</strong><span data-i18n="trade_hub_open">Open service</span></a>
+            <a class="supplier-link" href="https://www.taskrabbit.co.uk/services/handyman" target="_blank" rel="noopener noreferrer"><strong>Taskrabbit</strong><span data-i18n="trade_hub_open">Open service</span></a>
+          </div>
         </div>
 
         <div class="card trade-pilot">
           <p class="eyebrow" data-i18n="trade_for">For local tradespeople</p>
-          <h3 data-i18n="trade_no_subscription">No subscription maze</h3>
-          <p data-i18n="trade_pilot_text">The intended Profito model is simple: local jobs that match your trade and area, with no monthly subscription. A fee would apply only when an agreed job is actually won.</p>
-          <ul class="plain-list">
-            <li data-i18n="trade_list_1">No monthly membership planned</li>
-            <li data-i18n="trade_list_2">Choose relevant local work</li>
-            <li data-i18n="trade_list_3">Clear job details before committing</li>
-            <li data-i18n="trade_list_4">Pay-for-success model still to be tested before launch</li>
-          </ul>
+          <h3 data-i18n="trade_hub_work_title">Explore existing job networks</h3>
+          <p data-i18n="trade_hub_work_text">Use established UK services that already connect clients and tradespeople, rather than waiting for a new Profito marketplace.</p>
+          <div class="supplier-grid" id="tradeWorkLinks">
+            <a class="supplier-link" href="https://www.mybuilder.com/tradesperson/register" target="_blank" rel="noopener noreferrer"><strong>MyBuilder</strong><span data-i18n="trade_hub_open">Open service</span></a>
+            <a class="supplier-link" href="https://join.checkatrade.com/" target="_blank" rel="noopener noreferrer"><strong>Checkatrade</strong><span data-i18n="trade_hub_open">Open service</span></a>
+          </div>
+          <p class="privacy-note" data-i18n="trade_hub_work_note">The providers set eligibility, registration, and any fees. Profito does not register accounts, pay for leads or share your data.</p>
           <a class="btn-secondary" href="#quote" data-i18n="trade_brief">See the project brief format</a>
         </div>
       </div>
@@ -529,6 +535,52 @@
 
     for (const lang of Object.keys(countryTranslationAdditions)) {
       Object.assign(translations[lang], countryTranslationAdditions[lang]);
+    }
+
+    const existingPlatformTranslations = {
+  "en": {
+    "trade_hub_find_title": "Compare established UK services",
+    "trade_hub_find_note": "These links open independent UK platforms. Your trade, area and private details are not transferred. Enter them on the provider's website.",
+    "trade_hub_open": "Open service",
+    "trade_hub_work_title": "Explore existing job networks",
+    "trade_hub_work_text": "Use established UK services that already connect clients and tradespeople, rather than waiting for a new Profito marketplace.",
+    "trade_hub_work_note": "Providers set eligibility, registration and any fees. Profito does not register accounts, pay for leads or share your details."
+  },
+  "pl": {
+    "trade_hub_find_title": "Porównaj istniejące serwisy w Wielkiej Brytanii",
+    "trade_hub_find_note": "Linki prowadzą do niezależnych serwisów w UK. Branża, lokalizacja i dane prywatne nie są przekazywane. Wprowadź je na stronie serwisu.",
+    "trade_hub_open": "Otwórz serwis",
+    "trade_hub_work_title": "Korzystaj z działających platform zleceń",
+    "trade_hub_work_text": "Wykorzystuj serwisy, które już łączą klientów i fachowców, zamiast czekać na nowy rynek Profito.",
+    "trade_hub_work_note": "Każdy serwis ustala warunki, rejestrację i ewentualne opłaty. Profito nie zakłada kont, nie kupuje kontaktów i nie przekazuje danych."
+  },
+  "de": {
+    "trade_hub_find_title": "Bestehende Dienste in Großbritannien vergleichen",
+    "trade_hub_find_note": "Die Links öffnen unabhängige UK-Plattformen. Beruf, Standort und persönliche Daten werden nicht übertragen; gib sie beim Anbieter ein.",
+    "trade_hub_open": "Dienst öffnen",
+    "trade_hub_work_title": "Bestehende Auftragsplattformen nutzen",
+    "trade_hub_work_text": "Nutze UK-Dienste, die Kunden und Handwerker bereits verbinden, statt auf einen neuen Profito-Marktplatz zu warten.",
+    "trade_hub_work_note": "Anbieter legen Voraussetzungen, Anmeldung und Gebühren fest. Profito meldet niemanden an und übermittelt keine Daten."
+  },
+  "fr": {
+    "trade_hub_find_title": "Comparer des services existants au Royaume-Uni",
+    "trade_hub_find_note": "Ces liens ouvrent des plateformes britanniques indépendantes. Aucun métier, lieu ni renseignement personnel n’est transmis. Saisissez-les sur leur site.",
+    "trade_hub_open": "Ouvrir le service",
+    "trade_hub_work_title": "Utiliser les réseaux de chantiers existants",
+    "trade_hub_work_text": "Utilisez les services britanniques qui mettent déjà en relation clients et artisans, plutôt que d’attendre un nouveau marché Profito.",
+    "trade_hub_work_note": "Chaque fournisseur fixe ses conditions, inscriptions et frais. Profito ne crée aucun compte ni ne transmet vos données."
+  },
+  "es": {
+    "trade_hub_find_title": "Comparar servicios existentes del Reino Unido",
+    "trade_hub_find_note": "Los enlaces abren plataformas británicas independientes. No se transfieren oficio, zona ni datos personales. Introdúcelos en el sitio del proveedor.",
+    "trade_hub_open": "Abrir servicio",
+    "trade_hub_work_title": "Usar redes de trabajos existentes",
+    "trade_hub_work_text": "Aprovecha plataformas británicas que ya conectan clientes y profesionales en vez de esperar a un nuevo mercado Profito.",
+    "trade_hub_work_note": "Cada proveedor establece requisitos, registro y tarifas. Profito no crea cuentas ni comparte tus datos."
+  }
+};
+    for (const lang of Object.keys(existingPlatformTranslations)) {
+      Object.assign(translations[lang], existingPlatformTranslations[lang]);
     }
 
     let currentLang = 'en';

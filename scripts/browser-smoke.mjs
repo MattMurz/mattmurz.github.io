@@ -15,8 +15,12 @@ const server = http.createServer((request, response) => {
   let requested = decodeURIComponent(url.pathname);
   if (requested === '/') requested = '/index.html';
   const sitePrefix = '/__site/';
-  const filename = production && requested.startsWith(sitePrefix)
-    ? path.join(root, requested.slice(sitePrefix.length))
+  // Shared feedback assets are served from the site root on GitHub Pages.
+  // Mirror that route in browser tests rather than returning a false 404.
+  const sharedRootAssets = new Set(['/feedback-widget.js', '/feedback-widget.css']);
+  const filename = production && (requested.startsWith(sitePrefix) || sharedRootAssets.has(requested))
+    ? path.join(root, requested.startsWith(sitePrefix)
+      ? requested.slice(sitePrefix.length) : requested.slice(1))
     : !production && requested.startsWith('/src/')
       ? path.join(root, requested)
       : path.join(siteRoot, requested);
@@ -78,8 +82,28 @@ try {
     await fallbackPage.close();
     console.log('Homepage language and country detection plus manual overrides passed');
   }
+  if (production) {
+    // The existing measurement assertions below explicitly use Polish copy.
+    // Verify the new English default and Polish switch independently.
+    const englishMiarka = await browser.newPage({ locale: 'en-GB', viewport: { width: 390, height: 844 } });
+    englishMiarka.on('pageerror', (error) => failures.push(error.message));
+    await englishMiarka.goto(origin);
+    await englishMiarka.waitForFunction(() => typeof window.miarkaGetLanguage === 'function');
+    assert.equal(await englishMiarka.locator('html').getAttribute('lang'), 'en');
+    assert.equal(await englishMiarka.locator('#upload-title').textContent(), 'Add a photo');
+    assert.equal(await englishMiarka.locator('#miarkaLanguage').inputValue(), 'en');
+    assert.equal(await englishMiarka.locator('#profitoFeedbackOpen').textContent(), '💬 Report a bug or suggest an idea');
+    await englishMiarka.locator('#miarkaLanguage').selectOption('pl');
+    assert.equal(await englishMiarka.locator('html').getAttribute('lang'), 'pl');
+    assert.equal(await englishMiarka.locator('#upload-title').textContent(), 'Dodaj zdjęcie');
+    await englishMiarka.locator('#miarkaLanguage').selectOption('en');
+    assert.equal(await englishMiarka.locator('#upload-title').textContent(), 'Add a photo');
+    assert.equal(await englishMiarka.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+    await englishMiarka.close();
+    console.log('Miarka EN/PL language selection and public beta feedback passed');
+  }
   for (const viewport of Array.of({ width: 1280, height: 900 }, { width: 390, height: 844 }, { width: 320, height: 740 })) {
-    const page = await browser.newPage({ viewport, hasTouch: viewport.width < 500, isMobile: viewport.width < 500 });
+    const page = await browser.newPage({ viewport, locale: 'pl-PL', hasTouch: viewport.width < 500, isMobile: viewport.width < 500 });
     page.on('pageerror', (error) => failures.push(error.message));
     let detectorRequests = 0;
     await page.route('https://docs.opencv.org/**', (route) => { detectorRequests++; return route.abort(); });
@@ -237,7 +261,7 @@ try {
     await page.close();
   }
   // A loaded but aborted runtime must execute a replacement script on retry.
-  const retryPage = await browser.newPage();
+  const retryPage = await browser.newPage({ locale: 'pl-PL' });
   retryPage.on('pageerror', (error) => failures.push(error.message));
   let runtimeRequests = 0;
   await retryPage.route('https://docs.opencv.org/**', (route) => {
@@ -268,7 +292,7 @@ try {
   console.log('OpenCV retries after timeout and after a previously ready runtime disappears');
   await retryPage.close();
   if (process.env.OPENCV_TEST_SCRIPT) {
-    const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+    const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, locale: 'pl-PL' });
     page.on('pageerror', (error) => failures.push(error.message));
     let requests = 0;
     await page.route('https://docs.opencv.org/**', (route) => {
@@ -305,7 +329,7 @@ try {
     await page.close();
 
     // A delayed detector must never overwrite a manual calibration or newer measurements.
-    const racePage = await browser.newPage();
+    const racePage = await browser.newPage({ locale: 'pl-PL' });
     racePage.on('pageerror', (error) => failures.push(error.message));
     let release;
     const gate = new Promise((resolve) => { release = resolve; });

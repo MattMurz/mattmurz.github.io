@@ -27,6 +27,7 @@
       <a href="#calculator" data-i18n="nav_calculator">Calculator</a>
       <a href="/miarka/" data-i18n="nav_miarka">Photo Measure</a>
       <a href="#suppliers" data-i18n="nav_suppliers">Local suppliers</a>
+      <a id="localHubNav" href="/local/" data-i18n="nav_local">Local hub</a>
       <a href="#portfolio" data-i18n="nav_portfolio">Portfolio</a>
       <a href="#find-trade" data-i18n="nav_trade">Find a trade</a>
       <a href="#quote" data-i18n="nav_quote">Quote</a>
@@ -198,6 +199,15 @@
         </div>
         <p id="supplierPrivacy" class="privacy-note" data-i18n="suppliers_privacy">The postcode is used only in your browser to create search links. Profito Systems does not store it.</p>
         <div id="supplierLinks" class="supplier-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="app-module" id="local-hub">
+      <div class="card">
+        <p class="eyebrow" data-i18n="local_eyebrow">For local people · public beta</p>
+        <h2 data-i18n="local_title">Discover nearby makers, services and farm shops</h2>
+        <p data-i18n="local_text">Search real places using Google Maps without creating an account. Tell us which local products, craftspeople and community services should be easier to find. This is a preview, not a live business directory.</p>
+        <a id="localHubOpen" class="btn-primary" href="/local/" data-i18n="local_open">Explore Profito Local</a>
       </div>
     </section>
 
@@ -609,6 +619,26 @@
 };
     for (const lang of Object.keys(tradeHubCopy)) Object.assign(translations[lang], tradeHubCopy[lang]);
 
+    // Community discovery uses the existing site. No second listing database.
+    const localCopy = {
+      en: { nav_local:'Local hub', local_eyebrow:'For local people · public beta', local_title:'Discover nearby makers, services and farm shops',
+        local_text:'Search real places using Google Maps without creating an account. Tell us which local products, craftspeople and community services should be easier to find. This is a preview, not a live business directory.',
+        local_open:'Explore Profito Local' },
+      pl: { nav_local:'Lokalnie', local_eyebrow:'Dla mieszkańców · wersja testowa', local_title:'Znajdź rzemieślników, usługi i gospodarstwa w okolicy',
+        local_text:'Wyszukuj istniejące miejsca przez Google Maps bez zakładania konta. Powiedz nam, które lokalne produkty, firmy i inicjatywy powinny być łatwiejsze do znalezienia. To podgląd, nie działający katalog firm.',
+        local_open:'Otwórz Profito Local' },
+      de: { nav_local:'Lokal', local_eyebrow:'Für lokale Menschen · Testversion', local_title:'Lokale Anbieter, Handwerker und Hofläden finden',
+        local_text:'Finde vorhandene Orte auf Google Maps ohne Konto. Sage uns, welche Produkte, Handwerker und lokalen Initiativen leichter auffindbar sein sollten. Dies ist eine Vorschau, noch kein Branchenverzeichnis.',
+        local_open:'Profito Local öffnen' },
+      fr: { nav_local:'Local', local_eyebrow:'Pour les habitants · version bêta', local_title:'Découvrez artisans, services et fermes à proximité',
+        local_text:'Cherchez des lieux existants sur Google Maps sans créer de compte. Dites-nous quels produits et initiatives locales devraient être plus faciles à trouver. Ceci est un aperçu, pas encore un annuaire.',
+        local_open:'Explorer Profito Local' },
+      es: { nav_local:'Local', local_eyebrow:'Para la comunidad · versión beta', local_title:'Encuentra artesanos, servicios y granjas cercanas',
+        local_text:'Busca lugares existentes en Google Maps sin crear una cuenta. Cuéntanos qué productos e iniciativas deberían ser más fáciles de encontrar. Esto es una vista previa, no un directorio activo.',
+        local_open:'Explorar Profito Local' }
+    };
+    for (const language of Object.keys(localCopy)) Object.assign(translations[language],localCopy[language]);
+
     let currentLang = 'en';
 
     function t(key) {
@@ -726,6 +756,8 @@
 
     function setLanguage(lang, persist = false) {
       currentLang = supportedLanguage(lang) || 'en';
+      const localLang = currentLang === 'pl' ? 'pl' : 'en';
+      for (const id of ['localHubNav','localHubOpen']) { const anchor = document.getElementById(id); if (anchor) anchor.href = '/local/?lang=' + localLang; }
       document.documentElement.lang = currentLang;
       document.querySelectorAll('[data-i18n]').forEach((element) => {
         const key = element.dataset.i18n;

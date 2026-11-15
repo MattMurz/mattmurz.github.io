@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f172a">
+  <title>Profito Local — Find people and services near you</title>
+  <meta name="description" content="Explore local trades, farmers, shops, produce, repair services and community groups using Google Maps. Suggest an idea or a future business listing.">
+  <link rel="canonical" href="https://mattmurz.github.io/local/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Profito Systems">
+  <meta property="og:title" content="Profito Local — Your community, your ideas">
+  <meta property="og:url" content="https://mattmurz.github.io/local/">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/feedback-widget.css">
+</head>
+<body>
+  <header class="local-header">
+    <a class="logo" href="/" aria-label="Profito Systems home">◈ <strong>Profito Systems</strong></a>
+    <nav aria-label="Product navigation">
+      <a href="/" data-t="navHome">Home</a>
+      <a href="/miarka/" data-t="navMeasure">Contech Measure</a>
+      <a href="#local-search" data-t="navExplore">Explore local</a>
+    </nav>
+    <label class="language-label" for="localLanguage"><span data-t="language">Language</span>
+      <select id="localLanguage" aria-label="Language"><option value="en">English</option><option value="pl">Polski</option></select>
+    </label>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow" data-t="eyebrow">Community discovery · public beta</div>
+      <h1 data-t="headline">Find what matters near you.</h1>
+      <p class="lead" data-t="lead">Local tradespeople, makers, independent shops, farm shops and neighbourhood initiatives. Search real places using an established map — and help shape what Profito builds next.</p>
+      <div class="hero-badges"><span data-t="badgeFree">Free to explore</span><span data-t="badgeOpen">No account needed</span><span data-t="badgePrivate">No hidden tracking</span></div>
+    </section>
+
+    <section class="panel" id="local-search" aria-labelledby="local-search-title">
+      <div class="heading">
+        <div class="eyebrow" data-t="searchLabel">Search existing places</div>
+        <h2 id="local-search-title" data-t="searchTitle">What are you looking for?</h2>
+        <p data-t="searchIntro">Choose a category and area. Your search opens on Google Maps. Profito does not pretend to own or rank the results.</p>
+      </div>
+      <form id="localSearchForm" novalidate>
+        <div class="fields">
+          <label for="localCategory"><span data-t="categoryLabel">Category</span>
+            <select id="localCategory" required>
+              <option value="trades" data-t="catTrades">Builders & trades</option>
+              <option value="farm" data-t="catFarm">Farm shops & growers</option>
+              <option value="produce" data-t="catProduce">Fresh local produce</option>
+              <option value="shops" data-t="catShops">Independent shops & makers</option>
+              <option value="repair" data-t="catRepair">Repairs & reuse</option>
+              <option value="community" data-t="catCommunity">Community organisations</option>
+              <option value="markets" data-t="catMarkets">Local markets</option>
+            </select>
+          </label>
+          <label for="localArea"><span data-t="areaLabel">Town or neighbourhood</span>
+            <input id="localArea" list="localAreas" autocomplete="address-level2" maxlength="70" minlength="2" required value="Brentford" placeholder="Brentford, Ealing…">
+          </label>
+          <label for="localKeyword"><span data-t="keywordLabel">Anything specific? (optional)</span>
+            <input id="localKeyword" maxlength="70" placeholder="e.g. tomatoes, carpenter, bakery" data-t-placeholder="keywordPlaceholder">
+          </label>
+        </div>
+        <datalist id="localAreas"><option value="Brentford"></option><option value="Ealing"></option><option value="Hounslow"></option><option value="Isleworth"></option><option value="Chiswick"></option><option value="Hanwell"></option><option value="Perivale"></option><option value="Hayes"></option></datalist>
+        <div class="actions">
+          <button type="submit" class="primary" data-t="searchButton">Prepare Google Maps search</button>
+          <a id="localMapsLink" target="_blank" rel="noopener noreferrer" class="maps-link" hidden data-t="mapsButton">Open results on Google Maps</a>
+        </div>
+        <p id="localSearchStatus" class="status" role="status" aria-live="polite" data-t="searchHint">Enter an area; the search stays in your browser until you open Google Maps.</p>
+        <p class="small" data-t="searchPrivacy">Your area and keywords are not saved or sent to Profito. Google receives the query only after you follow its link, under Google's terms and privacy policy. Results are provided by Google, not verified by Profito.</p>
+      </form>
+    </section>
+
+    <section class="panel" aria-labelledby="joinTitle">
+      <div class="heading">
+        <div class="eyebrow" data-t="participateLabel">Build a useful local network</div>
+        <h2 id="joinTitle" data-t="joinTitle">Want your business to be considered for a future directory?</h2>
+        <p data-t="joinIntro">Are you a local craftsperson, farmer, producer, independent shop or community organiser? Tell us what people should be able to find. We are collecting ideas, not operating a live member directory yet.</p>
+      </div>
+      <form id="localSuggestForm" novalidate>
+        <div class="fields">
+          <label for="localBusinessName"><span data-t="businessLabel">Public business or group name</span><input id="localBusinessName" maxlength="100" minlength="2" required placeholder="Business or group" data-t-placeholder="businessPlaceholder"></label>
+          <label for="localBusinessType"><span data-t="businessTypeLabel">What do you offer?</span>
+            <select id="localBusinessType">
+              <option value="trades" data-t="catTrades">Builders & trades</option><option value="farm" data-t="catFarm">Farm shops & growers</option>
+              <option value="produce" data-t="catProduce">Fresh local produce</option><option value="shops" data-t="catShops">Independent shops & makers</option>
+              <option value="repair" data-t="catRepair">Repairs & reuse</option><option value="community" data-t="catCommunity">Community organisations</option>
+              <option value="markets" data-t="catMarkets">Local markets</option>
+            </select>
+          </label>
+          <label for="localBusinessArea"><span data-t="publicAreaLabel">Public service area (not your home address)</span><input id="localBusinessArea" maxlength="70" minlength="2" required placeholder="Brentford / West London" data-t-placeholder="publicAreaPlaceholder"></label>
+        </div>
+        <label class="check"><input id="localAuthorised" type="checkbox" required><span data-t="permission">I own this business or have permission to suggest its public details.</span></label>
+        <button type="submit" class="secondary" data-t="suggestButton">Prepare an email suggestion</button>
+        <p id="localSuggestStatus" class="status" role="status" aria-live="polite"></p>
+        <p class="small" data-t="suggestPrivacy">Nothing is sent or stored automatically. Your email app opens a draft that you must send yourself. Do not include private home addresses, passwords or financial details. Sending a suggestion does not create an account or guarantee a listing. We use any email you send to review and respond to your suggestion; request deletion or correction at profito.systems@gmail.com.</p>
+        <a href="mailto:profito.systems@gmail.com?subject=Profito%20Local%20suggestion" data-t="emailDirect">Or email Profito directly</a>
+      </form>
+    </section>
+
+    <section class="panel note" aria-labelledby="aboutLocalTitle">
+      <h2 id="aboutLocalTitle" data-t="aboutTitle">One local network, built with residents</h2>
+      <p data-t="aboutText">This is a free discovery preview, not a marketplace for purchases, bookings or payments. Business profiles, verified owner submissions and moderated listings are being considered. Tell us what works and what is missing using the feedback button.</p>
+      <p class="small" data-t="safety">Please check businesses independently before buying or hiring. Food sales may require applicable registrations and allergen information; Profito is not taking orders or listing unverified sellers.</p>
+    </section>
+  </main>
+  <footer><p>Profito Systems · <span data-t="footerText">Local people, useful tools, practical ideas.</span> <a href="/">Home</a></p></footer>
+  <script src="local.js" defer></script>
+  <script src="/feedback-widget.js" defer></script>
+</body>
+</html>

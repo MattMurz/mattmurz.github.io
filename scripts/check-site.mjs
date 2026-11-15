@@ -8,6 +8,9 @@ const required = Array.of(
   'style.css',
   'google0ad6223d442a6e87.html',
   'miarka/index.html',
+  'local/index.html',
+  'local/local.js',
+  'local/styles.css',
   'miarka/styles.css',
   'miarka/app.js',
   'miarka/sample-a4.jpg',
@@ -34,7 +37,7 @@ if (fs.existsSync(path.join(root, 'CNAME'))) throw new Error('Custom-domain CNAM
 const robots = fs.readFileSync(path.join(root, 'robots.txt'), 'utf8');
 if (!robots.includes('Sitemap: ' + canonicalUrl + '/sitemap.xml')) throw new Error('robots.txt sitemap URL differs from canonical domain.');
 const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
-for (const canonicalPath of Array.of('/', '/miarka/')) {
+for (const canonicalPath of Array.of('/', '/miarka/', '/local/')) {
   if (!sitemap.includes('<loc>' + canonicalUrl + canonicalPath + '</loc>')) throw new Error('Missing canonical sitemap URL: ' + canonicalPath);
 }
 const marketing = JSON.parse(fs.readFileSync(path.join(root, 'marketing/source/marketing-pack.json'), 'utf8'));
@@ -49,6 +52,7 @@ if (fs.existsSync(path.join(root, 'google0ad6223d442a6e87(1).html'))) {
 
 for (const relativePath of Array.of(
   'miarka/app.js',
+  'local/local.js',
   'miarka/src/cv/detectA4.js',
   'miarka/src/cv/warp.js',
   'miarka/src/cv/opencv-loader.js',
@@ -56,7 +60,7 @@ for (const relativePath of Array.of(
   new vm.Script(fs.readFileSync(path.join(root, relativePath), 'utf8'), { filename: relativePath });
 }
 
-for (const htmlPath of Array.of('index.html', 'miarka/index.html')) {
+for (const htmlPath of Array.of('index.html', 'miarka/index.html', 'local/index.html')) {
   const absoluteHtmlPath = path.join(root, htmlPath);
   const html = fs.readFileSync(absoluteHtmlPath, 'utf8');
   const references = Array.from(html.matchAll(/(?:src|href)="([^"]+)"/g), (match) => match[1]);

@@ -2,7 +2,7 @@
   "name": "profito-systems-site",
   "private": true,
   "scripts": {
-    "check": "node scripts/check-site.mjs && node scripts/generate-marketing-pack.mjs . --check && node scripts/check-reference-geometry.mjs && node --test scripts/measurement.test.mjs && node scripts/check-feedback.mjs && node scripts/check-miarka-i18n.mjs",
+    "check": "node scripts/check-site.mjs && node scripts/generate-marketing-pack.mjs . --check && node scripts/check-reference-geometry.mjs && node --test scripts/measurement.test.mjs && node scripts/check-feedback.mjs && node scripts/check-miarka-i18n.mjs && node scripts/check-local-discovery.mjs",
     "marketing:generate": "node scripts/generate-marketing-pack.mjs",
     "test:browser": "node scripts/browser-smoke.mjs"
   }

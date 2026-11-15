@@ -8,6 +8,7 @@
   <title>Miarka — Profito Systems</title>
   <link rel="canonical" href="https://mattmurz.github.io/miarka/">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/feedback-widget.css">
 </head>
 <body>
   <header class="topbar">
@@ -177,13 +178,16 @@
   </main>
 
   <footer>
+    <p>To wersja testowa. Zauważyłeś błąd lub masz pomysł? Użyj przycisku „Zgłoś błąd lub pomysł”.</p>
     <strong>Zdjęcie zostaje na urządzeniu.</strong>
     <span>Analiza odbywa się lokalnie w przeglądarce. Wynik jest orientacyjny, nie geodezyjny.</span>
+    <noscript><a href="mailto:profito.systems@gmail.com?subject=Miarka%20feedback">Zgłoś błąd przez e-mail</a></noscript>
   </footer>
 
   <script src="src/cv/detectA4.js"></script>
   <script src="src/cv/warp.js"></script>
   <script src="src/cv/opencv-loader.js"></script>
   <script src="app.js"></script>
+  <script src="/feedback-widget.js" defer></script>
 </body>
 </html>

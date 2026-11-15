@@ -864,3 +864,6 @@ textarea {
     gap: 0.25rem;
   }
 }
+
+/* Public beta: invitation to suggest and report improvements */
+.pilot-notice { margin-top: 1rem; padding: .9rem 1rem; border-left: 4px solid #60a5fa; background: rgba(59, 130, 246, .12); border-radius: .4rem; color: #e2e8f0; }

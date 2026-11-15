@@ -1,3 +1,5 @@
+function miarkaLocalized(text) { return typeof window.miarkaTranslate === 'function' ? window.miarkaTranslate(text) : text; }
+
 const fileInput = document.getElementById('file');
 const cameraInput = document.getElementById('cameraFile');
 const fileNameEl = document.getElementById('fileName');
@@ -355,8 +357,8 @@ function drawInputOverlay() {
     }
   }
 
-  drawLine(ctx, measurePoints.width, '#22c55e', measuredMm.width ? widthResult.textContent : 'szerokość');
-  drawLine(ctx, measurePoints.height, '#f97316', measuredMm.height ? heightResult.textContent : 'wysokość');
+  drawLine(ctx, measurePoints.width, '#22c55e', measuredMm.width ? widthResult.textContent : miarkaLocalized('szerokość'));
+  drawLine(ctx, measurePoints.height, '#f97316', measuredMm.height ? heightResult.textContent : miarkaLocalized('wysokość'));
 }
 
 function canvasPointFromEvent(event) {
@@ -724,9 +726,11 @@ exportPhotoBtn.addEventListener('click', () => {
   ctx.fillRect(0, inputCanvas.height, output.width, captionHeight);
   ctx.fillStyle = '#f8fafc';
   ctx.font = Math.max(16, Math.round(output.width / 55)) + 'px system-ui';
-  const lines = Array.of('Profito — pomiar orientacyjny ze zdjęcia',
-    'Szerokość: ' + widthResult.textContent + ' | Wysokość: ' + heightResult.textContent + ' | Pole: ' + areaResult.textContent,
-    'Wzorzec: ' + referenceSpec().label + ' | Jedna płaszczyzna; wynik sprawdź miarką.');
+  const lines = Array.of(miarkaLocalized('Profito — pomiar orientacyjny ze zdjęcia'),
+    miarkaLocalized('Szerokość: ') + widthResult.textContent + ' | ' + miarkaLocalized('Wysokość: ') +
+      heightResult.textContent + ' | ' + miarkaLocalized('Pole: ') + areaResult.textContent,
+    miarkaLocalized('Wzorzec: ') + miarkaLocalized(referenceSpec().label) +
+      ' | ' + miarkaLocalized('Jedna płaszczyzna; wynik sprawdź miarką.'));
   lines.forEach((line, index) => ctx.fillText(line, 18, inputCanvas.height + captionHeight * (index + 1) / 4, output.width - 36));
   output.toBlob((blob) => {
     if (!blob) { setStatus('Nie udało się zapisać zdjęcia.', 'is-error'); return; }

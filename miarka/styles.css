@@ -545,3 +545,16 @@ footer strong { color: #cbd5e1; }
     transition: none !important;
   }
 }
+
+
+/* P73 bilingual interface: language switcher, no impact on measurement canvas. */
+.miarka-language { margin-left: auto; display: inline-flex; align-items: center; gap: .35rem; flex: 0 0 auto; }
+.miarka-language label { font-size: 1rem; }
+.miarka-lang-switch { appearance: auto; border: 1px solid #94a3b8; background: #142941; color: #fff;
+  border-radius: .55rem; padding: .5rem .65rem; min-height: 42px; max-width: 8.5rem;
+  font: 600 .88rem system-ui, sans-serif; cursor: pointer; }
+.miarka-lang-switch:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
+@media (max-width: 480px) {
+  .miarka-language { margin-left: 0; }
+  .miarka-lang-switch { max-width: 7.2rem; font-size: .82rem; }
+}

@@ -83,6 +83,58 @@ try {
     console.log('Homepage language and country detection plus manual overrides passed');
   }
   if (production) {
+    // Keep gallery QA in the same trusted Playwright run as Miarka. No new runner,
+    // browser extension, external endpoint, or production deployment is needed.
+    const expectedImages = Array.of(
+      'work_013.jpg', 'work_167.jpg', 'work_208.jpg', 'work_249.jpg',
+      'work_101.jpg', 'work_106.jpg', 'work_111.jpg', 'work_151.jpg',
+      'work_116.jpg', 'work_267.jpg', 'work_063.jpg', 'work_294.jpg',
+    );
+    const finalCaptionByLanguage = {
+      en: 'Bathroom detail',
+      pl: 'Detal łazienki',
+      de: 'Baddetail',
+      fr: 'Détail de salle de bains',
+      es: 'Detalle de baño',
+    };
+    for (const viewport of Array.of(
+      { width: 1280, height: 900 },
+      { width: 390, height: 844 },
+      { width: 320, height: 740 },
+    )) {
+      const galleryPage = await browser.newPage({
+        viewport, locale: 'en-GB', hasTouch: viewport.width < 500, isMobile: viewport.width < 500,
+      });
+      galleryPage.on('pageerror', (error) => failures.push(error.message));
+      await galleryPage.goto(origin + '/__site/index.html');
+      const figures = galleryPage.locator('#portfolio .gallery figure');
+      assert.equal(await figures.count(), 12, 'gallery must display 12 figures');
+      const imageNames = await figures.locator('img').evaluateAll(
+        (images) => images.map((img) => img.getAttribute('src').split('/').at(-1)),
+      );
+      assert.deepEqual(imageNames, expectedImages, 'gallery must use existing reviewed public assets');
+      await galleryPage.evaluate(() => {
+        document.querySelectorAll('#portfolio .gallery img').forEach((img) => { img.loading = 'eager'; });
+      });
+      await galleryPage.waitForFunction(() => {
+        const images = Array.from(document.querySelectorAll('#portfolio .gallery img'));
+        return images.length === 12 && images.every((img) => img.complete && img.naturalWidth > 0);
+      }, null, { timeout: 15000 });
+      assert.equal(
+        await galleryPage.evaluate(() => document.documentElement.scrollWidth > window.innerWidth),
+        false,
+        'homepage gallery must not cause horizontal overflow at ' + viewport.width + 'px',
+      );
+      for (const [lang, caption] of Object.entries(finalCaptionByLanguage)) {
+        await galleryPage.locator('[data-lang="' + lang + '"]').click();
+        assert.equal(await figures.last().locator('figcaption').textContent(), caption);
+        assert.ok((await figures.last().locator('img').getAttribute('alt')).length >= 12);
+      }
+      await galleryPage.close();
+    }
+    console.log('Profito 12-image gallery decode, language and responsive tests passed');
+  }
+  if (production) {
     // The existing measurement assertions below explicitly use Polish copy.
     // Verify the new English default and Polish switch independently.
     const englishMiarka = await browser.newPage({ locale: 'en-GB', viewport: { width: 390, height: 844 } });

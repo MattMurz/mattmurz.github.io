@@ -80,6 +80,34 @@ try {
     assert.equal(await fallbackPage.locator('html').getAttribute('lang'), 'en');
     assert.equal(await fallbackPage.locator('#supplierCountry').inputValue(), 'GB');
     await fallbackPage.close();
+    // Test the actual mobile homepage interaction without opening an email client.
+    const quotePage = await browser.newPage({
+      locale: 'en-GB', timezoneId: 'Europe/London',
+      viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true,
+    });
+    quotePage.on('pageerror', (error) => failures.push(error.message));
+    await quotePage.goto(origin + '/__site/index.html');
+    assert.equal(await quotePage.locator('#emailQuote').isVisible(), false, 'email action must start hidden');
+    await quotePage.locator('#quoteName').fill('Ada Example');
+    await quotePage.locator('#quotePhone').fill('+44 20 0000 0000');
+    await quotePage.locator('#quoteArea').fill('TW3');
+    await quotePage.locator('#quoteWork').fill('Bathroom tiling');
+    await quotePage.locator('#quoteForm button[type="submit"]').click();
+    assert.equal(await quotePage.locator('#emailQuote').isVisible(), true, 'email action appears after preparing a summary');
+    await quotePage.locator('#quoteWork').fill('Bathroom tiling and waterproofing');
+    await quotePage.evaluate(() => {
+      document.getElementById('emailQuote').addEventListener('click', (event) => event.preventDefault());
+    });
+    await quotePage.locator('#emailQuote').click();
+    const quoteMailHref = await quotePage.locator('#emailQuote').getAttribute('href');
+    assert.ok(quoteMailHref.startsWith('mailto:profito.systems@gmail.com?subject='), 'email draft must address Profito');
+    const quoteMailBody = decodeURIComponent(quoteMailHref.split('&body=')[1] || '');
+    assert.ok(quoteMailBody.includes('Ada Example'), 'email draft must contain customer-supplied name');
+    assert.ok(quoteMailBody.includes('Bathroom tiling and waterproofing'), 'email draft must use latest form values');
+    assert.equal(await quotePage.locator('#quoteStatus').textContent(),
+      'Review the draft and press Send in your email app. Nothing was sent automatically.');
+    await quotePage.close();
+
     console.log('Homepage language and country detection plus manual overrides passed');
   }
   if (production) {

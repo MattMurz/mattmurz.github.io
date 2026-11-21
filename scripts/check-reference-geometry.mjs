@@ -28,6 +28,23 @@ const a4Geometry = referenceOutputGeometry(orderCorners(structuredClone(portrait
 assert.equal(a4Geometry.widthMm, 210);
 assert.equal(a4Geometry.heightMm, 297);
 
+// Preserve the distinct landscape A4 regression from historical Contech.
+// The existing checker already covers portrait A4, cards and perspective.
+const landscapeA4Unordered = [
+  { x: 297, y: 210 },
+  { x: 0, y: 210 },
+  { x: 297, y: 0 },
+  { x: 0, y: 0 },
+];
+const landscapeA4Ordered = orderCorners(structuredClone(landscapeA4Unordered));
+assert.deepEqual(landscapeA4Ordered, [
+  { x: 0, y: 0 },
+  { x: 297, y: 0 },
+  { x: 297, y: 210 },
+  { x: 0, y: 210 },
+]);
+near(quadrilateralAspectRatio(landscapeA4Ordered), 297 / 210, 1e-9, "landscape A4 ratio");
+
 const landscapeCard = [
   { x: 0, y: 0 },
   { x: 856, y: 0 },

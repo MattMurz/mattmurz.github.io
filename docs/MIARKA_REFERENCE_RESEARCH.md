@@ -31,3 +31,13 @@ The thirteen-test suite passes, including regressions for these failures. Runnin
 ## Production synchronization
 
 Application and test files are copied one-way from canonical contech-measure main commit 2bde72b7c9b7f3ccb4916f8291489e6e6a32534f, merged from PR 13. Canonical main CI and Pages deployment passed before production PR 20 was merged. No live production deployment of this follow-up had been performed when this note was written.
+
+## 2026-11-17 — Contech ownership and archive reconciliation
+
+The two uploaded `main` ZIP snapshots were checked against live GitHub on 17 November 2026: all 95 files in `MattMurz/mattmurz.github.io` and 21 files in `profito-systems/contech-measure` match the same ordered Git blob SHA1 prefixes from each current main branch. Both archive snapshots pass `npm run check` and the 13 measurement regressions. A ZIP snapshot is not a backup of Git commit history.
+
+**Current production release owner:** `MattMurz/mattmurz.github.io`, serving `/miarka/`. The older organisation repository holds historical development and research, not a separate verified current production site. Its `README.md` and legacy forced `gh-pages` publisher are being reconciled in the existing Draft Contech PR #16; until that PR is merged, the old workflow remains present on the Contech main branch.
+
+The CV geometry and loader sources, visual sample, measurement regressions, and original research are already present in the current personal repo. The original Contech-only A4 test includes a distinct **landscape A4 corner ordering and ratio** assertion that was not explicitly present in the consolidated Profito reference script. This small regression is added to the existing `scripts/check-reference-geometry.mjs` rather than adding another parallel test script.
+
+**Retirement gate:** do not delete the organisation or historical repository until Git history, branches, tags, collaborators, dependencies and any Pages links are inventoried, a complete restorable transfer or backup is independently verified, and the owner approves the irreversible final operation. Do not copy older app markup over the site's current translations and feedback integration.

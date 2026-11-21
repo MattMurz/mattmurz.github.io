@@ -224,8 +224,9 @@ function appHarness() {
     document: {
       getElementById: element,
       createElement: (tag) => tag === 'canvas'
-        ? { width: 0, height: 0, getContext: () => canvasContext }
+        ? { width: 0, height: 0, style: {}, setAttribute() {}, getContext: () => canvasContext }
         : element('created-' + tag),
+      body: { appendChild() {} },
       querySelector: () => ({ value: 'a4' }),
       querySelectorAll: () => Array.of(),
     },

@@ -17,6 +17,8 @@ concurrency:
 
 jobs:
   deploy:
+    # Prevent manual dispatch from another branch from publishing public Pages.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     environment:

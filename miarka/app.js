@@ -708,7 +708,7 @@ function addCanvasPoint(point) {
 }
 
 inputCanvas.addEventListener('pointerdown', (event) => {
-  if (!currentImage || (event.pointerType === 'mouse' && event.button !== 0)) return;
+  if (pointerAction || !currentImage || (event.pointerType === 'mouse' && event.button !== 0)) return;
   const point = canvasPointFromEvent(event);
   const threshold = 14 * inputCanvas.width / inputCanvas.getBoundingClientRect().width;
   let handle = null;
@@ -721,7 +721,7 @@ inputCanvas.addEventListener('pointerdown', (event) => {
       if (distance < best) { best = distance; handle = { key: group.key, index, original: { ...candidate } }; }
     });
   }
-  pointerAction = { handle, clientX: event.clientX, clientY: event.clientY,
+  pointerAction = { pointerId: event.pointerId, handle, clientX: event.clientX, clientY: event.clientY,
     scrollLeft: inputFrame.scrollLeft, scrollTop: inputFrame.scrollTop, moved: false };
   if (handle) calibrationVersion++;
   inputCanvas.setPointerCapture(event.pointerId);
@@ -729,7 +729,7 @@ inputCanvas.addEventListener('pointerdown', (event) => {
 });
 
 inputCanvas.addEventListener('pointermove', (event) => {
-  if (!pointerAction) return;
+  if (!pointerAction || pointerAction.pointerId !== event.pointerId) return;
   const action = pointerAction;
   const dx = event.clientX - action.clientX, dy = event.clientY - action.clientY;
   if (Math.hypot(dx, dy) > 5) action.moved = true;
@@ -748,7 +748,7 @@ inputCanvas.addEventListener('pointermove', (event) => {
 });
 
 function finishPointer(event, cancelled = false) {
-  if (!pointerAction) return;
+  if (!pointerAction || pointerAction.pointerId !== event.pointerId) return;
   const action = pointerAction;
   pointerAction = null;
   hideTouchLoupe();
@@ -770,6 +770,7 @@ function finishPointer(event, cancelled = false) {
 }
 inputCanvas.addEventListener('pointerup', (event) => finishPointer(event));
 inputCanvas.addEventListener('pointercancel', (event) => finishPointer(event, true));
+inputCanvas.addEventListener('lostpointercapture', (event) => finishPointer(event, true));
 
 exportPhotoBtn.addEventListener('click', () => {
   if (!currentImage || !activeGeometry) return;

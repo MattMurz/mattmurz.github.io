@@ -142,6 +142,38 @@ try {
     assert.equal(await page.locator('#areaResult').textContent(), '0.24 m²');
     assert.equal(await page.locator('#sendAreaBtn').isEnabled(), true);
     assert.equal(detectorRequests, 0, 'manual measurement must not download OpenCV');
+
+    if (viewport.width < 500) {
+      // Real Chromium touch dispatch, not mouse emulation: validate loupe
+      // lifecycle and that another pointer cannot take ownership of the gesture.
+      await page.locator('#measureWidthBtn').click();
+      await page.locator('#inputCanvas').scrollIntoViewIfNeeded();
+      const box = await page.locator('#inputCanvas').boundingBox();
+      const x = Math.round(box.x + box.width * 0.4);
+      const y = Math.round(box.y + box.height * 0.35);
+      const session = await page.context().newCDPSession(page);
+      await session.send('Input.dispatchTouchEvent', {
+        type: 'touchStart', touchPoints: Array.of({ x, y, id: 1 }),
+      });
+      await page.waitForFunction(() => touchLoupe.style.display === 'block');
+      assert.equal(await page.evaluate(() => {
+        const first = pointerAction.pointerId;
+        inputCanvas.dispatchEvent(new PointerEvent('pointerdown', {
+          pointerId: first + 100, pointerType: 'touch', clientX: 1, clientY: 1,
+        }));
+        inputCanvas.dispatchEvent(new PointerEvent('pointercancel', {
+          pointerId: first + 100, pointerType: 'touch',
+        }));
+        return pointerAction?.pointerId === first && touchLoupe.style.display === 'block';
+      }), true, 'secondary pointer must not replace or cancel active touch');
+      await session.send('Input.dispatchTouchEvent', { type: 'touchCancel', touchPoints: Array.of() });
+      await page.waitForFunction(() => pointerAction === null && touchLoupe.style.display === 'none');
+      assert.equal(await page.evaluate(() => measurePoints.width.length), 0, 'cancel must not add a measurement point');
+      await session.detach();
+      await measure();
+      assert.equal(await page.locator('#areaResult').textContent(), '0.24 m²');
+      console.log('Touch loupe cancellation and pointer ownership passed');
+    }
     await page.locator('#clearMeasuresBtn').click();
     assert.equal(await page.locator('#sendAreaBtn').isEnabled(), false);
     assert.equal(await page.locator('#sendAreaBtn').getAttribute('data-area'), null);

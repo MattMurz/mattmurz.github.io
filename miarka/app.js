@@ -53,6 +53,60 @@ let autoRunning = false;
 let referenceSidesSwapped = false;
 let zoom = 1;
 let pointerAction = null;
+
+// Touch precision loupe: show the selected image point above the user's finger.
+// Presentation only: it never modifies calibration points or measurement values.
+const touchLoupe = document.createElement('canvas');
+touchLoupe.width = 112;
+touchLoupe.height = 112;
+touchLoupe.setAttribute('aria-hidden', 'true');
+touchLoupe.style.cssText = 'position:fixed;display:none;pointer-events:none;z-index:1000;' +
+  'border:3px solid #fff;border-radius:50%;background:#17202c;' +
+  'box-shadow:0 4px 22px #0009;box-sizing:content-box;';
+document.body.appendChild(touchLoupe);
+
+function hideTouchLoupe() {
+  touchLoupe.style.display = 'none';
+}
+
+function showTouchLoupe(event) {
+  if (!currentImage || (event.pointerType !== 'touch' && event.pointerType !== 'pen')) return;
+  const rect = inputCanvas.getBoundingClientRect();
+  if (!rect.width || !rect.height) return;
+  const x = Math.max(0, Math.min(inputCanvas.width, (event.clientX - rect.left) * inputCanvas.width / rect.width));
+  const y = Math.max(0, Math.min(inputCanvas.height, (event.clientY - rect.top) * inputCanvas.height / rect.height));
+  const ctx = touchLoupe.getContext('2d');
+  const size = touchLoupe.width, scale = 3;
+  const half = size / (2 * scale);
+  const left = Math.max(0, x - half), top = Math.max(0, y - half);
+  const right = Math.min(inputCanvas.width, x + half), bottom = Math.min(inputCanvas.height, y + half);
+  if (right <= left || bottom <= top) return;
+  ctx.clearRect(0, 0, size, size);
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+  ctx.clip();
+  ctx.drawImage(inputCanvas, left, top, right - left, bottom - top,
+    size / 2 - (x - left) * scale, size / 2 - (y - top) * scale,
+    (right - left) * scale, (bottom - top) * scale);
+  ctx.restore();
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(size / 2 - 11, size / 2);
+  ctx.lineTo(size / 2 + 11, size / 2);
+  ctx.moveTo(size / 2, size / 2 - 11);
+  ctx.lineTo(size / 2, size / 2 + 11);
+  ctx.stroke();
+  const width = window.innerWidth, height = window.innerHeight, bubble = size + 6;
+  const leftPx = Math.max(8, Math.min(width - bubble - 8, event.clientX - bubble / 2));
+  const preferredTop = event.clientY < bubble + 24 ? event.clientY + 24 : event.clientY - bubble - 45;
+  const topPx = Math.max(8, Math.min(height - bubble - 8, preferredTop));
+  touchLoupe.style.left = leftPx + 'px';
+  touchLoupe.style.top = topPx + 'px';
+  touchLoupe.style.display = 'block';
+}
+
 const dimensionDrafts = new Map();
 const MAX_FILE_BYTES = 30 * 1024 * 1024;
 const MAX_IMAGE_PIXELS = 60 * 1000 * 1000;
@@ -126,6 +180,7 @@ function resetCalibration() {
   calibrationVersion++;
   referenceSidesSwapped = false;
   pointerAction = null;
+  hideTouchLoupe();
   inputCanvas.classList.remove('is-interactive');
   referencePreviewCard.classList.remove('is-hidden');
   warpedCanvas.getContext('2d').clearRect(0, 0, warpedCanvas.width, warpedCanvas.height);
@@ -653,7 +708,7 @@ function addCanvasPoint(point) {
 }
 
 inputCanvas.addEventListener('pointerdown', (event) => {
-  if (!currentImage || (event.pointerType === 'mouse' && event.button !== 0)) return;
+  if (pointerAction || !currentImage || (event.pointerType === 'mouse' && event.button !== 0)) return;
   const point = canvasPointFromEvent(event);
   const threshold = 14 * inputCanvas.width / inputCanvas.getBoundingClientRect().width;
   let handle = null;
@@ -666,14 +721,15 @@ inputCanvas.addEventListener('pointerdown', (event) => {
       if (distance < best) { best = distance; handle = { key: group.key, index, original: { ...candidate } }; }
     });
   }
-  pointerAction = { handle, clientX: event.clientX, clientY: event.clientY,
+  pointerAction = { pointerId: event.pointerId, handle, clientX: event.clientX, clientY: event.clientY,
     scrollLeft: inputFrame.scrollLeft, scrollTop: inputFrame.scrollTop, moved: false };
   if (handle) calibrationVersion++;
   inputCanvas.setPointerCapture(event.pointerId);
+  showTouchLoupe(event);
 });
 
 inputCanvas.addEventListener('pointermove', (event) => {
-  if (!pointerAction) return;
+  if (!pointerAction || pointerAction.pointerId !== event.pointerId) return;
   const action = pointerAction;
   const dx = event.clientX - action.clientX, dy = event.clientY - action.clientY;
   if (Math.hypot(dx, dy) > 5) action.moved = true;
@@ -688,12 +744,14 @@ inputCanvas.addEventListener('pointermove', (event) => {
     inputFrame.scrollLeft = action.scrollLeft - dx;
     inputFrame.scrollTop = action.scrollTop - dy;
   }
+  showTouchLoupe(event);
 });
 
 function finishPointer(event, cancelled = false) {
-  if (!pointerAction) return;
+  if (!pointerAction || pointerAction.pointerId !== event.pointerId) return;
   const action = pointerAction;
   pointerAction = null;
+  hideTouchLoupe();
   if (action.handle) {
     const handle = action.handle;
     const points = handle.key === 'reference' ? referenceCorners : measurePoints[handle.key];
@@ -712,6 +770,7 @@ function finishPointer(event, cancelled = false) {
 }
 inputCanvas.addEventListener('pointerup', (event) => finishPointer(event));
 inputCanvas.addEventListener('pointercancel', (event) => finishPointer(event, true));
+inputCanvas.addEventListener('lostpointercapture', (event) => finishPointer(event, true));
 
 exportPhotoBtn.addEventListener('click', () => {
   if (!currentImage || !activeGeometry) return;

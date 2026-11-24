@@ -123,6 +123,58 @@ for (const language of supportedLanguages) {
   }
   if (!indexHtml.includes(`data-lang="${language}"`)) throw new Error(`Homepage language switcher is missing: ${language}`);
 }
+const emailMarkup = indexHtml.match(/<a id="emailQuote"[^>]*>/);
+if (!emailMarkup || !emailMarkup[0].includes(' hidden ') || !emailMarkup[0].includes('data-i18n="quote_email"')) {
+  throw new Error('The quote email draft action must start hidden and be translated.');
+}
+if (!fs.readFileSync(path.join(root, 'style.css'), 'utf8').includes('#emailQuote[hidden]')) {
+  throw new Error('The quote email action must be visually hidden before the summary exists.');
+}
+for (const lang of supportedLanguages) {
+  if (!translationsForCheck[lang].quote_email_ready) throw new Error('Missing email draft guidance for ' + lang);
+}
+if (!localizationScript.includes("document.getElementById('emailQuote').hidden = false;")) {
+  throw new Error('Preparing the quote must reveal the email draft action.');
+}
+const emailHandlerStart = "document.getElementById('emailQuote').addEventListener('click', function (event) {";
+const emailStart = localizationScript.indexOf(emailHandlerStart);
+const emailEnd = localizationScript.indexOf('\n    });', emailStart);
+if (emailStart < 0 || emailEnd < emailStart) throw new Error('Email draft click handler missing.');
+const emailSummary = 'Name: Żaneta\nScope: Kitchen & bathroom\nPhone: +44 20 0000 0000';
+let emailFormValid = true;
+const emailOutput = { textContent: '' };
+const emailStatus = { textContent: '' };
+const emailElements = {
+  quoteForm: { reportValidity: () => emailFormValid },
+  quoteOutput: emailOutput,
+  quoteStatus: emailStatus,
+};
+const emailSandbox = {
+  document: { getElementById: (id) => emailElements[id] },
+  quoteSummary: () => emailSummary,
+  t: (key) => key,
+};
+const emailHandler = vm.runInNewContext(
+  '(function (event) {' + localizationScript.slice(emailStart + emailHandlerStart.length, emailEnd) + '\n})',
+  emailSandbox,
+);
+const emailLink = { href: 'mailto:profito.systems@gmail.com' };
+let cancelled = false;
+emailHandler.call(emailLink, { preventDefault: () => { cancelled = true; } });
+if (cancelled || emailOutput.textContent !== emailSummary || emailStatus.textContent !== 'quote_email_ready') {
+  throw new Error('A valid form must prepare a current, user-controlled email draft.');
+}
+if (!emailLink.href.startsWith('mailto:profito.systems@gmail.com?subject=') ||
+    !emailLink.href.includes('&body=' + encodeURIComponent(emailSummary))) {
+  throw new Error('Email draft must include correctly encoded quote content.');
+}
+const approvedHref = emailLink.href;
+emailFormValid = false;
+emailHandler.call(emailLink, { preventDefault: () => { cancelled = true; } });
+if (!cancelled || emailLink.href !== approvedHref) {
+  throw new Error('Invalid form must block the mailto navigation.');
+}
+
 if (!localizationScript.includes('navigator.languages')) throw new Error('Homepage must detect the browser preferred language.');
 if (!localizationScript.includes("localStorage.setItem(languageStorageKey")) throw new Error('Homepage must remember a manual language choice.');
 if (!localizationScript.includes('setLanguage(detectPreferredLanguage())')) throw new Error('Homepage must initialize from the preferred language.');
